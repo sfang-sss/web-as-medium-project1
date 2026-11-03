@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page settings / 页面基本设置 -->
+  <!-- charset: text encoding, so symbols like — and × show correctly / 文字编码，让 — 和 × 这类符号正常显示 -->
+  <meta charset="UTF-8">
+  <!-- viewport: fit the screen width on phones / 在手机上按屏幕宽度显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- title: text on the browser tab / 浏览器标签页上的文字 -->
+  <title>Early Digital Interfaces — The Comfort of Looking Back</title>
+  <!-- description: short summary for search engines / 给搜索引擎看的简介 -->
+  <meta name="description" content="Early Digital Interfaces: history and connections in The Comfort of Looking Back.">
+
+  <!-- Font: Archivo from Google Fonts (stand-in for Oldschool Grotesk) / 字体：从 Google Fonts 加载 Archivo（代替 Oldschool Grotesk） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+
+  <!-- All the site's styles / 全站的样式 -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="detail">
+  <!-- ========== ITEM PAGE: Early Digital Interfaces / 物品详情页 ========== -->
+
+  <!-- "Home" goes back to the landing page you came from (2026 or 2000s).
+       data-home lets main.js find this link and change it if needed.
+       "Home" 会回到你来的那个首页（2026 或 2000s）。data-home 让 main.js 能找到并修改这个链接。 -->
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="nav-link" href="../index.html" data-home>Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- <article> = one self-contained piece of content: this object / <article> = 一块独立的内容：这个物品 -->
+    <article class="item">
+      <h1 class="item-title">Early Digital Interfaces</h1>
+
+      <!-- Main photo on a grey square / 灰色正方形上的主图 -->
+      <figure class="item-figure">
+        <img src="../images/items/windows.webp" alt="Classic Windows Paint window with toolbar and color palette">
+      </figure>
+
+      <!-- Timeline: 4 key moments. <ol> = ordered list, because the order matters.
+           <time> marks the year. The heading is hidden on screen but read by screen readers.
+           时间线：4 个关键节点。用 <ol>（有序列表）是因为顺序有意义。
+           <time> 标记年份。标题在屏幕上隐藏，但读屏软件能读到。 -->
+      <section class="timeline-wrap" aria-labelledby="timeline-heading">
+        <h2 id="timeline-heading" class="visually-hidden">Timeline</h2>
+        <ol class="timeline">
+          <li><span class="marker" aria-hidden="true"></span><p><time>1985</time> — Windows 1.0 shipped with Paint, one of the first drawing programs many people ever used.</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>2001</time> — Windows XP launched with “Bliss,” the green-hill wallpaper seen on millions of screens.</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>2007</time> — Windows Vista&#x27;s glossy, glass-like Aero look defined an era of shiny, bubbly design.</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>2013</time> — iOS 7 replaced realistic, textured icons with flat design.</p></li>
+        </ol>
+      </section>
+
+      <!-- Description. Two kinds of links:
+           pink (class="link-internal") = another object in this collection
+           black with ↗ (class="link-external") = Wikipedia, opens in a new tab
+           介绍文字。两种链接：
+           粉色（link-internal）= 集合里的另一个物品
+           黑色带 ↗（link-external）= Wikipedia，在新标签页打开 -->
+      <section class="item-body" aria-label="Description">
+        <p>Early digital interfaces used grey windows, pixel icons, toolbars, and later glossy buttons, glass effects, and sky-blue gradients. That later style is now called <a class="link-external" href="https://en.wikipedia.org/wiki/Frutiger_Aero" target="_blank" rel="noopener">Frutiger Aero</a>, named after the typeface often used with it.</p>
+        <p>These interfaces were designed to look friendly and optimistic about technology. Seen today, a Paint window or the XP wallpaper brings back school computer labs and family desktops. That same mix of familiarity and strangeness drives the <a class="link-internal" href="liminal.html">liminal spaces</a> aesthetic, and the pixel graphics link back to the <a class="link-internal" href="game-boy.html">Game Boy</a> and <a class="link-internal" href="tamagotchi.html">Tamagotchi</a>.</p>
+      </section>
+    </article>
+
+    <!-- Explore more: 4 related objects. This is how visitors move from one
+         object to another without going back home (non-linear browsing).
+         Explore more：4 个相关物品。访问者可以直接从一个物品跳到另一个，不用回首页（非线性浏览）。 -->
+    <section class="explore" aria-labelledby="explore-heading">
+      <h2 id="explore-heading" class="explore-title">Explore more...</h2>
+      <ul class="related">
+        <li><a href="liminal.html"><span class="related-thumb"><img src="../images/items/liminal.jpg" alt="" loading="lazy"></span><span class="related-name">Liminal Spaces</span></a></li>
+        <li><a href="game-boy.html"><span class="related-thumb"><img src="../images/items/game-boy.webp" alt="" loading="lazy"></span><span class="related-name">Game Boy</span></a></li>
+        <li><a href="ccd.html"><span class="related-thumb"><img src="../images/items/ccd.webp" alt="" loading="lazy"></span><span class="related-name">CCD Camera</span></a></li>
+        <li><a href="tamagotchi.html"><span class="related-thumb"><img src="../images/items/tamagotchi.webp" alt="" loading="lazy"></span><span class="related-name">Tamagotchi</span></a></li>
+      </ul>
+    </section>
+  </main>
+  <!-- All the site's interactions (dragging, floating, clock, Home link) / 全站的交互（拖拽、飘动、时钟、Home 链接） -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

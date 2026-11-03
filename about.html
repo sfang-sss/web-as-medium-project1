@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page settings / 页面基本设置 -->
+  <!-- charset: text encoding, so symbols like — and × show correctly / 文字编码，让 — 和 × 这类符号正常显示 -->
+  <meta charset="UTF-8">
+  <!-- viewport: fit the screen width on phones / 在手机上按屏幕宽度显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- title: text on the browser tab / 浏览器标签页上的文字 -->
+  <title>About — The Comfort of Looking Back</title>
+  <!-- description: short summary for search engines / 给搜索引擎看的简介 -->
+  <meta name="description" content="About The Comfort of Looking Back, a catalogue of nostalgic technology.">
+
+  <!-- Font: Archivo from Google Fonts (stand-in for Oldschool Grotesk) / 字体：从 Google Fonts 加载 Archivo（代替 Oldschool Grotesk） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+
+  <!-- All the site's styles / 全站的样式 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="about">
+  <!-- ========== ABOUT PAGE / 关于页面 ========== -->
+
+  <!-- "Home" returns to the landing page you came from / "Home" 回到你来的那个首页 -->
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="nav-link" href="index.html" data-home>Home</a>
+    </nav>
+  </header>
+
+  <!-- Pink dot grid in the background / 背景的粉色点阵 -->
+  <div class="dots dots--page" aria-hidden="true"></div>
+
+  <main class="about">
+    <h1 class="about-title">About this Collection...</h1>
+
+    <!-- The two original collection posters / 两张原始的收藏海报 -->
+    <div class="posters">
+      <figure><img src="images/about/poster-2000s.jpg" alt="Collection poster in warm 2000s colors: cassette, telephone, Game Boy, Paint window, Polaroid camera"></figure>
+      <figure><img src="images/about/poster-2026.jpg" alt="Collection poster in black and white with pink accents: vinyl record, wired earphones, Polaroid camera"></figure>
+    </div>
+
+    <!-- Curatorial statement: what the set is and why these objects belong together
+         策展说明：这组收藏是什么、为什么这些物品放在一起 -->
+    <section class="about-text" aria-label="Curatorial statement">
+      <p><em>The Comfort of Looking Back</em> is a digital catalogue exploring the revival of outdated technologies and visual trends from the 2000s and 2010s through contemporary nostalgia.</p>
+      <p>The collection features objects such as CCD cameras, DV camcorders, wired earphones, MP3 players, early digital interfaces, and low-resolution imagery. Once considered ordinary or obsolete, these objects are now being rediscovered and reinterpreted by a new generation.</p>
+      <p>Rather than presenting them as isolated artifacts, this catalogue explores the connections between their original uses, visual characteristics, and emotional associations. Through an interconnected, non-linear browsing experience, users can navigate between objects and discover unexpected relationships shaped by shared memories, aesthetics, and cultural meanings.</p>
+      <p>By examining how the meaning of everyday objects changes over time, the project asks: Why do we return to things from the past, and what makes something outdated feel meaningful again?</p>
+    </section>
+
+    <!-- Index of objects: an overview of every item, each linking to its page
+         物品索引：所有物品的总览，每个都链接到它的详情页 -->
+    <section class="index" aria-labelledby="index-heading">
+      <h2 id="index-heading">Index of objects</h2>
+      <ol class="index-list">
+        <li><a href="items/ccd.html"><img src="images/items/ccd.webp" alt="" loading="lazy"><span>CCD Camera</span></a></li>
+        <li><a href="items/dv.html"><img src="images/items/dv.webp" alt="" loading="lazy"><span>DV Camcorder</span></a></li>
+        <li><a href="items/polaroid.html"><img src="images/items/polaroid.webp" alt="" loading="lazy"><span>Polaroid Camera</span></a></li>
+        <li><a href="items/ipod.html"><img src="images/items/ipod.webp" alt="" loading="lazy"><span>iPod</span></a></li>
+        <li><a href="items/flip-phone.html"><img src="images/items/flip-phone.webp" alt="" loading="lazy"><span>Flip Phone</span></a></li>
+        <li><a href="items/earphones.html"><img src="images/items/earphones.webp" alt="" loading="lazy"><span>Wired Earphones</span></a></li>
+        <li><a href="items/vinyl.html"><img src="images/items/vinyl.webp" alt="" loading="lazy"><span>Vinyl Record</span></a></li>
+        <li><a href="items/tamagotchi.html"><img src="images/items/tamagotchi.webp" alt="" loading="lazy"><span>Tamagotchi</span></a></li>
+        <li><a href="items/game-boy.html"><img src="images/items/game-boy.webp" alt="" loading="lazy"><span>Game Boy</span></a></li>
+        <li><a href="items/telephone.html"><img src="images/items/telephone.webp" alt="" loading="lazy"><span>Corded Telephone</span></a></li>
+        <li><a href="items/cassette.html"><img src="images/items/cassette.webp" alt="" loading="lazy"><span>Cassette Tape</span></a></li>
+        <li><a href="items/cd-player.html"><img src="images/items/cd-player.webp" alt="" loading="lazy"><span>CD Player</span></a></li>
+        <li><a href="items/windows.html"><img src="images/items/windows.webp" alt="" loading="lazy"><span>Early Digital Interfaces</span></a></li>
+        <li><a href="items/liminal.html"><img src="images/items/liminal.jpg" alt="" loading="lazy"><span>Liminal Spaces</span></a></li>
+        <li><a href="items/foldable.html"><img src="images/items/foldable.webp" alt="" loading="lazy"><span>Foldable Phone</span></a></li>
+        <li><a href="items/airpods-max.html"><img src="images/items/airpods-max.webp" alt="" loading="lazy"><span>AirPods Max</span></a></li>
+        <li><a href="items/cybertruck.html"><img src="images/items/cybertruck.webp" alt="" loading="lazy"><span>Cybertruck</span></a></li>
+      </ol>
+    </section>
+  </main>
+  <!-- All the site's interactions (dragging, floating, clock, Home link) / 全站的交互（拖拽、飘动、时钟、Home 链接） -->
+  <script src="js/main.js"></script>
+</body>
+</html>

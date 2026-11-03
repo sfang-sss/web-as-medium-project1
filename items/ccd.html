@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page settings / 页面基本设置 -->
+  <!-- charset: text encoding, so symbols like — and × show correctly / 文字编码，让 — 和 × 这类符号正常显示 -->
+  <meta charset="UTF-8">
+  <!-- viewport: fit the screen width on phones / 在手机上按屏幕宽度显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- title: text on the browser tab / 浏览器标签页上的文字 -->
+  <title>CCD Camera — The Comfort of Looking Back</title>
+  <!-- description: short summary for search engines / 给搜索引擎看的简介 -->
+  <meta name="description" content="CCD Camera: history and connections in The Comfort of Looking Back.">
+
+  <!-- Font: Archivo from Google Fonts (stand-in for Oldschool Grotesk) / 字体：从 Google Fonts 加载 Archivo（代替 Oldschool Grotesk） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+
+  <!-- All the site's styles / 全站的样式 -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="detail">
+  <!-- ========== ITEM PAGE: CCD Camera / 物品详情页 ========== -->
+
+  <!-- "Home" goes back to the landing page you came from (2026 or 2000s).
+       data-home lets main.js find this link and change it if needed.
+       "Home" 会回到你来的那个首页（2026 或 2000s）。data-home 让 main.js 能找到并修改这个链接。 -->
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="nav-link" href="../index.html" data-home>Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- <article> = one self-contained piece of content: this object / <article> = 一块独立的内容：这个物品 -->
+    <article class="item">
+      <h1 class="item-title">CCD Camera</h1>
+
+      <!-- Main photo on a grey square / 灰色正方形上的主图 -->
+      <figure class="item-figure">
+        <img src="../images/items/ccd.webp" alt="Silver Canon IXUS compact digital camera">
+      </figure>
+
+      <!-- Timeline: 4 key moments. <ol> = ordered list, because the order matters.
+           <time> marks the year. The heading is hidden on screen but read by screen readers.
+           时间线：4 个关键节点。用 <ol>（有序列表）是因为顺序有意义。
+           <time> 标记年份。标题在屏幕上隐藏，但读屏软件能读到。 -->
+      <section class="timeline-wrap" aria-labelledby="timeline-heading">
+        <h2 id="timeline-heading" class="visually-hidden">Timeline</h2>
+        <ol class="timeline">
+          <li><span class="marker" aria-hidden="true"></span><p><time>1969</time> — CCD was invented by Willard Boyle and George E. Smith.</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>1975</time> — Steven Sasson invented the first digital still camera, using a Fairchild 100 × 100 CCD sensor.</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>1983</time> — First Mass-Produced Consumer CCD Video Camera</p></li>
+          <li><span class="marker" aria-hidden="true"></span><p><time>2024</time> — Y2K nostalgia brought CCD cameras back into trend, with young people drawn to their retro look and vintage image quality.</p></li>
+        </ol>
+      </section>
+
+      <!-- Description. Two kinds of links:
+           pink (class="link-internal") = another object in this collection
+           black with ↗ (class="link-external") = Wikipedia, opens in a new tab
+           介绍文字。两种链接：
+           粉色（link-internal）= 集合里的另一个物品
+           黑色带 ↗（link-external）= Wikipedia，在新标签页打开 -->
+      <section class="item-body" aria-label="Description">
+        <p>A charge-coupled device (CCD) is an <a class="link-external" href="https://en.wikipedia.org/wiki/Integrated_circuit" target="_blank" rel="noopener">integrated circuit</a> containing an array of linked, or coupled, <a class="link-external" href="https://en.wikipedia.org/wiki/Capacitor" target="_blank" rel="noopener">capacitors</a>. Under the control of an external circuit, each capacitor can transfer its <a class="link-external" href="https://en.wikipedia.org/wiki/Electric_charge" target="_blank" rel="noopener">electric charge</a> to a neighboring capacitor. CCD sensors are a major technology used in <a class="link-external" href="https://en.wikipedia.org/wiki/Digital_imaging" target="_blank" rel="noopener">digital imaging</a>.</p>
+        <p>In a CCD <a class="link-external" href="https://en.wikipedia.org/wiki/Image_sensor" target="_blank" rel="noopener">image sensor</a>, <a class="link-external" href="https://en.wikipedia.org/wiki/Pixel" target="_blank" rel="noopener">pixels</a> are represented by <a class="link-external" href="https://en.wikipedia.org/wiki/Doping_(semiconductor" target="_blank" rel="noopener">p-doped</a>) <a class="link-external" href="https://en.wikipedia.org/wiki/Metal%E2%80%93oxide%E2%80%93semiconductor" target="_blank" rel="noopener">metal–oxide–semiconductor</a> (MOS) <a class="link-external" href="https://en.wikipedia.org/wiki/Capacitor" target="_blank" rel="noopener">capacitors</a>. These <a class="link-external" href="https://en.wikipedia.org/wiki/MOS_capacitor" target="_blank" rel="noopener">MOS capacitors</a>, the basic building blocks of a CCD, are biased above the threshold for inversion when image acquisition begins, allowing the conversion of incoming <a class="link-external" href="https://en.wikipedia.org/wiki/Photon" target="_blank" rel="noopener">photons</a> into electron charges at the semiconductor-oxide interface; the CCD is then used to read out these charges.</p>
+        <p>Although CCDs are not the only technology to allow for light detection, CCD image sensors are widely used in professional, medical, and scientific applications where high-quality image data are required.</p>
+      </section>
+    </article>
+
+    <!-- Explore more: 4 related objects. This is how visitors move from one
+         object to another without going back home (non-linear browsing).
+         Explore more：4 个相关物品。访问者可以直接从一个物品跳到另一个，不用回首页（非线性浏览）。 -->
+    <section class="explore" aria-labelledby="explore-heading">
+      <h2 id="explore-heading" class="explore-title">Explore more...</h2>
+      <ul class="related">
+        <li><a href="dv.html"><span class="related-thumb"><img src="../images/items/dv.webp" alt="" loading="lazy"></span><span class="related-name">DV Camcorder</span></a></li>
+        <li><a href="polaroid.html"><span class="related-thumb"><img src="../images/items/polaroid.webp" alt="" loading="lazy"></span><span class="related-name">Polaroid Camera</span></a></li>
+        <li><a href="ipod.html"><span class="related-thumb"><img src="../images/items/ipod.webp" alt="" loading="lazy"></span><span class="related-name">iPod</span></a></li>
+        <li><a href="flip-phone.html"><span class="related-thumb"><img src="../images/items/flip-phone.webp" alt="" loading="lazy"></span><span class="related-name">Flip Phone</span></a></li>
+      </ul>
+    </section>
+  </main>
+  <!-- All the site's interactions (dragging, floating, clock, Home link) / 全站的交互（拖拽、飘动、时钟、Home 链接） -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

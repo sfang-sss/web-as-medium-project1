@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page settings / 页面基本设置 -->
+  <!-- charset: text encoding, so symbols like — and × show correctly / 文字编码，让 — 和 × 这类符号正常显示 -->
+  <meta charset="UTF-8">
+  <!-- viewport: fit the screen width on phones / 在手机上按屏幕宽度显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- title: text on the browser tab / 浏览器标签页上的文字 -->
+  <title>The Comfort of Looking Back</title>
+  <!-- description: short summary for search engines / 给搜索引擎看的简介 -->
+  <meta name="description" content="A non-linear catalogue of outdated technologies and why we return to them.">
+
+  <!-- Font: Archivo from Google Fonts (stand-in for Oldschool Grotesk) / 字体：从 Google Fonts 加载 Archivo（代替 Oldschool Grotesk） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+
+  <!-- All the site's styles / 全站的样式 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="landing landing--2026">
+  <!-- ========== LANDING PAGE (2026) / 首页（2026） ==========
+       Every object below is a link to its item page.
+       Drag to move it, click to open it (handled in js/main.js).
+       下面每个物体都是一个链接，指向它的详情页。拖拽可以移动，点击打开（在 js/main.js 里处理）。 -->
+
+  <!-- Top bar: About link + clock / 顶部：About 链接 + 时钟 -->
+  <header class="site-header">
+    <nav aria-label="Main">
+      <a class="nav-link" href="about.html">About</a>
+
+      <!-- The clock switches to the other landing page (2000s.html).
+           It drops down a little when clicked, then the page changes.
+           时钟：切换到另一个首页（2000s.html）。点击后会往下掉一点，然后换页。 -->
+      <a class="era-switch" href="2000s.html" title="Travel back to the 2000s" aria-label="Travel back to the 2000s">
+        <img src="images/ui/clock.webp" alt="" width="108" height="148" draggable="false">
+      </a>
+    </nav>
+  </header>
+
+  <!-- The collage: same layout as the Figma frame.
+       data-era tells main.js which landing page this is.
+       拼贴画区域：和 Figma 画板布局一样。data-era 告诉 main.js 这是哪个首页。 -->
+  <main class="collage" data-era="2026">
+    <h1 class="landing-title">Welcome to 2026!</h1>
+
+    <!-- Decoration: pink dot grid and pink squares (from Figma) / 装饰：粉色点阵和粉色方块（来自 Figma） -->
+    <div class="dots" aria-hidden="true"></div>
+    <span class="square square--outline" style="--x:348;--y:335;--w:147;--h:147" aria-hidden="true"></span>
+    <span class="square square--outline" style="--x:1407;--y:503;--w:230;--h:230" aria-hidden="true"></span>
+    <span class="square square--outline" style="--x:1183;--y:2620;--w:653;--h:653" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:1461;--y:1363;--w:19;--h:19" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:1172;--y:2191;--w:19;--h:19" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:405;--y:2937;--w:19;--h:19" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:363;--y:322;--w:25;--h:25" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:1609;--y:710;--w:55;--h:55" aria-hidden="true"></span>
+    <span class="square square--fill" style="--x:1726;--y:3466;--w:19;--h:19" aria-hidden="true"></span>
+
+    <!-- The objects. On each link:
+         href      = the item page it opens / 点击后打开的详情页
+         data-label= the name tag shown on hover / 悬停时显示的名字
+         data-mask = which parts of the image are visible, so clicks on
+                     transparent corners pass through (see main.js part 2)
+                     图片哪里看得见，点到透明边角时会穿透（见 main.js 第 2 部分）
+         style     = x, y, width, height and rotation, copied from Figma
+                     位置、宽高和旋转角度，照搬 Figma 里的数值 -->
+    <ul class="objects">
+      <li><a class="object" href="items/windows.html" data-label="Early Digital Interfaces" data-mask="00000000fffffffffffffffffffffffffffffffffffff807fc000007f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000000f8000007fc000007ffffffffffffffffffffffffffffffffffffffff00000000" style="--x:643;--y:1963;--w:633;--h:456;--r:0deg"><img src="images/2026/windows-ascii.webp" alt="Early Digital Interfaces" draggable="false"></a></li>
+      <li><a class="object" href="items/liminal.html" data-label="Liminal Spaces" style="--x:385.24;--y:1388.09;--w:473.11;--h:354.83;--r:4.52deg"><img src="images/2026/backrooms.jpg" alt="Liminal Spaces" draggable="false"></a></li>
+      <li><a class="object" href="items/vinyl.html" data-label="Vinyl Record" data-mask="000ff800007fff0001ffff8003ffffe007fffff00ffffff81ffffff81ffffffc3ffffffe3ffffffe7ffffffe7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7ffffffe3ffffffe3ffffffe1ffffffc1ffffff80ffffff807fffff003ffffe001ffff80007fff00000ff800" style="--x:-197;--y:1517;--w:819;--h:804;--r:0deg"><img src="images/2026/vinyl.webp" alt="Vinyl Record" draggable="false"></a></li>
+      <li><a class="object" href="items/foldable.html" data-label="Foldable Phone" data-mask="00000000000000001fbc00783ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3ffffffc3fffc7fc0000000000000000" style="--x:1218.02;--y:1710.74;--w:681;--h:454;--r:-10.99deg"><img src="images/2026/foldable.webp" alt="Foldable Phone" draggable="false"></a></li>
+      <li><a class="object" href="items/tamagotchi.html" data-label="Tamagotchi" data-mask="007ffc00007ffe00007ffe00007ffe00007ffe00007ffe00007ffc00007ffc00007ffc00007ffc00007ffc00007ffc00007ffc00007ffc00007ff800007ffc0000ffff8007ffffe01ffffff87ffffffc7ffffffefffffffefffffffffffffffffffffffffffffffffffffffffffffffe7ffffffe7ffffffc3ffffff80fffffe0" style="--x:88.62;--y:714.67;--w:249.36;--h:564;--r:-17.89deg"><img src="images/2026/tamagotchi.webp" alt="Tamagotchi" draggable="false"></a></li>
+      <li><a class="object" href="items/earphones.html" data-label="Wired Earphones" data-mask="1ffffe003fffff807fffffc07ffffff0fffffff8fffffffcfffefffefff83ffffff80ffffff803fffffc01ffffff00fff7ffe0fff3ffffffe0ffffffe03ffffee01ffffc00fffff803fffff00ffffff01ff3ffc0fffffc00ffffe000ffff8000ffff0000fffc0000fff00000fff000003ff000001ff000001ff000001fe00000" style="--x:940.15;--y:1159.52;--w:836.24;--h:1027.86;--r:9.06deg"><img src="images/2026/earphones.webp" alt="Wired Earphones" draggable="false"></a></li>
+      <li><a class="object" href="items/game-boy.html" data-label="Game Boy" data-mask="00000000003e0000003ffc00003fffb8003ffff8007ffffe00fffffe00fffffe01fffffe01fffffc03fffffc03fffff807fffff807fffff007fffff007fffff00ffffff00fffffe01fffffe01fffffc01fffffc03fffff803fffff807fffff807fffff007fffff007ffffe007ffffe0007fffc0000fffc00000ffc000000e000" style="--x:122;--y:2653;--w:318;--h:355;--r:0deg"><img src="images/2026/gameboy-ascii.webp" alt="Game Boy" draggable="false"></a></li>
+      <li><a class="object" href="items/telephone.html" data-label="Corded Telephone" data-mask="00000000000000000000000000007fe00003fff0001ffff0007ffff001fffff007fffff007fffff07ffffff8fffffffcfffffffefffffffef7fffffff3fffffff07ffffff9ffffffffffffffffffffffffffffff3fffffff0ffffffc0ffffff00ff7ff8007fffc0003fff00001ffe000007fc000001f00000000000000000000" style="--x:1175.18;--y:3305.15;--w:684.6;--h:796.49;--r:-12.16deg"><img src="images/2026/telephone-ascii.webp" alt="Corded Telephone" draggable="false"></a></li>
+      <li><a class="object" href="items/dv.html" data-label="DV Camcorder" data-mask="0001c0000007e000000ff000003ff800007ff80000fff80003fffc0007fffc000ffffc001ffffc003ffffc007ffffe007fffffe07ffffffc7ffffffc7ffffffe7ffffffe7ffffffe7ffffffefffffffeffffffffffffffffffffffffffffffffffffffff7ffffffe0ffffffe03f7fffe0000fffe00001ffe000007fc000000f8" style="--x:63.53;--y:2231.99;--w:522.96;--h:332.98;--r:-15.9deg"><img src="images/2026/dv.webp" alt="DV Camcorder" draggable="false"></a></li>
+      <li><a class="object" href="items/flip-phone.html" data-label="Flip Phone" data-mask="00000e00000fff80003fffe0007ffff8007ffff8007ffff800fffff801fffff001ffffe001ffffe001ffffe007ffffe007ffffe007ffffe007ffffe007ffffe01fffffe01fffffe03fffffe03fffffe03fffffe07fffffe07fffffe0ffffff00ffffff00fffffe00fffffe00fffffe00fffff800fffff000fffff0007ffff000" style="--x:196.9;--y:3682.86;--w:336.29;--h:665.14;--r:20.41deg"><img src="images/2026/flip-phone-ascii.webp" alt="Flip Phone" draggable="false"></a></li>
+      <li><a class="object" href="items/ccd.html" data-label="CCD Camera" data-mask="0000000000e000007ffffffe7fffffff7fffffff7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7fffffff7fffffff7fffffff" style="--x:1176.46;--y:763.44;--w:413.09;--h:233.08;--r:12.01deg"><img src="images/2026/ccd.webp" alt="CCD Camera" draggable="false"></a></li>
+      <li><a class="object" href="items/windows.html" data-label="Early Digital Interfaces" data-mask="000000000000000000000000000000000000000000fffe0000ffff0000ffff0000ffffc007fe1ff00fff1ff00fffdff00fffdff00fffc0f00fffc0f00fffe0f00ffffef00ffffef00ffffef007fffef000fffef000fffff001fffff001fffff001fffff000003f0000001c000000000000000000000000000000000000000000" style="--x:1393.19;--y:2166.95;--w:330.55;--h:348.44;--r:-7.45deg"><img src="images/2026/search-ascii.webp" alt="Early Digital Interfaces" draggable="false"></a></li>
+      <li><a class="object" href="items/game-boy.html" data-label="Game Boy" data-mask="0000000007ffffe01ffffff03ffffffc7ffffffc7ffffffe7ffffffe7ffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffffe7ffffffe7ffffffe7ffffffe7ffffffc3ffffffc1ffffff01ffffff0000fffe0" style="--x:1131.02;--y:2542.28;--w:618.97;--h:255.44;--r:14.26deg"><img src="images/2026/psp-ascii.webp" alt="Game Boy" draggable="false"></a></li>
+      <li><a class="object" href="items/ipod.html" data-label="iPod" data-mask="1fe00ff81ffffff81ffffff81ffffff81ffffff81ffffff81ffe7ff81ffe7ff81ffe7ff81ffffff81ffffff81ffffff81ffffff81ffffff81ffffff81ffffff81ffffff81ffffff81e7e07f81e7007f81e71e7f81e3ffff81e3ff9f81e3ff9f81e3ff8f81e3ffbf81e3feff81e000ff81e000ff81e0007f81c0007f81c0001f8" style="--x:79.45;--y:3107.43;--w:280.25;--h:572.21;--r:165.73deg"><img src="images/2026/ipod-ascii.webp" alt="iPod" draggable="false"></a></li>
+      <li><a class="object" href="items/cassette.html" data-label="Cassette Tape" data-mask="0000000000000000000ff070007ffc7000fffff001fffff003fffff007fffff007fffff007fffff007fffff007fffff03ffffff03bfffff07fffffc07fffff807f3ffc003c0ff800383ff800003ffc00703ffe00703fbe00703ffe00703ffe70003ffc700f8ff8703f83e0f03f8001f83f8001f83c0001f80000000000000000" style="--x:581.96;--y:818.46;--w:353;--h:496;--r:98.04deg"><img src="images/2026/cassette-ascii.webp" alt="Cassette Tape" draggable="false"></a></li>
+      <li><a class="object" href="items/airpods-max.html" data-label="AirPods Max" data-mask="003ffc0000ffff8003ffffc007ffffe00ffffff00ffffff80ffe7ff80ffc1ff80ff80ff00ff007f00fc001f80fc001f80f8001f80f8000f80ff007f80ffe7ff87ffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff7fffffff7fffffff7ffffffe3ffffffe3ffffffc1ffffff80ffffff003ffffe0" style="--x:1327.5;--y:2706.52;--w:484.13;--h:639.69;--r:21.81deg"><img src="images/2026/airpods-max.webp" alt="AirPods Max" draggable="false"></a></li>
+      <li><a class="object" href="items/cybertruck.html" data-label="Cybertruck" data-mask="000fff80003fffe0007ffff800fffffc01ffffff03ffffff07ffffff0fffffff1fffffff3ffffffe7ffffffe7ffffffe7ffffffe7ffffffe7ffffffe7ffffffe7fffffff7fffffff7fffffff7fffffff7fffffff7ffffffe7ffffffefffffffcfffffff8fffffff0ffffffe0ffffffc0ffffff80fffffe003ffffc000ffff000" style="--x:455.97;--y:3861.26;--w:885;--h:512;--r:12.74deg"><img src="images/2026/cybertruck.webp" alt="Cybertruck" draggable="false"></a></li>
+      <li><a class="object" href="items/cd-player.html" data-label="CD Player" data-mask="00000000007fe00001fff80003fffe000fffff801fffffc01fffffe03ffffff03ffffff83ffffffc3ffffffc3ffffffe7ffffffe7ffffffe7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7fffffff7ffffffe7ffffffe7ffffffe3ffffffe3ffffffc1ffffff80ffffff007ffffc003ffff0001fff800007f0000" style="--x:405;--y:2942;--w:579;--h:483;--r:0deg"><img src="images/2026/cd-player-ascii.webp" alt="CD Player" draggable="false"></a></li>
+      <li><a class="object" href="items/liminal.html" data-label="Liminal Spaces" style="--x:687.19;--y:3283.42;--w:522.5;--h:336.73;--r:-6.01deg"><img src="images/2026/poolcore.jpg" alt="Liminal Spaces" draggable="false"></a></li>
+      <li><a class="object" href="items/polaroid.html" data-label="Polaroid Camera" data-mask="001ff000001ffc00001fff80001fffe0001ffff0001ffff8003ffff8007ffff800fffff801fffff807fffff80ffffff81ffffff83ffffff87ffffffcfffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff7fffffff1fffffff0fffffff07fffffe01fffff800fffff0003fffc0000fff800003fe00" style="--x:557.24;--y:2444.95;--w:583.76;--h:513.06;--r:-10.04deg"><img src="images/2026/polaroid.webp" alt="Polaroid Camera" draggable="false"></a></li>
+    </ul>
+  </main>
+
+  <!-- Hint at the bottom of the screen; fades out after 6 seconds / 屏幕底部的提示，6 秒后淡出 -->
+  <p class="hint" aria-hidden="true">Drag the objects around · Click one to open it</p>
+  <!-- All the site's interactions (dragging, floating, clock, Home link) / 全站的交互（拖拽、飘动、时钟、Home 链接） -->
+  <script src="js/main.js"></script>
+</body>
+</html>
