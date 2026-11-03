@@ -12,8 +12,11 @@
       算出每张图片哪些地方是看得见的（不透明的）。
    3. Hover, drag and click on the objects.
       物体的悬停、拖拽和点击。
-   4. The clock: drops down when clicked, then opens the other landing page.
-      时钟：点击后往下掉一点，然后打开另一个首页。
+   4. The square transition between the two landing pages (2 seconds).
+      两个首页之间的方块转场（2 秒）。
+   5. The clock: drops down when clicked, squares cover the screen, then the
+      other landing page opens and the squares clear away.
+      时钟：点击后往下掉一点，方块盖满屏幕，然后打开另一个首页，方块再散开。
    ========================================================= */
 
 // Wrapping everything in a function keeps these variables private to this file.
@@ -251,16 +254,193 @@
   }
 
 
-  /* ---------- 4. The clock: drop, then switch era / 时钟：往下掉，然后切换年代 ----------
-     The drop animation is in style.css (@keyframes drop). Here we:
+  /* ---------- 4. The square transition / 方块转场 ----------
+     A 2-second transition between the two landing pages:
+       - COVER  (1s, on the page you leave): pink and white squares grow,
+         starting at the top corners and cascading down in an arc, until
+         the whole screen is covered.
+       - REVEAL (1s, on the page you arrive at): the same squares shrink
+         away in the same order, top to bottom, showing the new page.
+     The squares are drawn on a <canvas> (a drawing surface) that sits on
+     top of everything.
+     两个首页之间 2 秒的转场：
+       - 盖上（1 秒，在离开的页面）：粉白方块从顶部两角开始变大，
+         以弧形一路往下铺，直到盖满整个屏幕。
+       - 揭开（1 秒，在到达的页面）：同样的方块按同样的顺序从上往下缩小消失，露出新页面。
+     方块画在一个盖在最上层的 <canvas>（画布）上。 */
+
+  const T_COVER = 1000;          // cover time in ms / 盖上用时（毫秒）
+  const T_REVEAL = 1000;         // reveal time in ms / 揭开用时（毫秒）
+  const GROW = 0.32;             // each square takes 32% of the time to grow / 每个方块用 32% 的时间长大
+  const PINK = "#e93392";
+  const WHITE = "#ffffff";
+  const PINK_SHARE = 0.55;       // about 55% of the squares are pink / 大约 55% 的方块是粉色
+
+  // A random-number generator that always gives the same numbers for the
+  // same "seed". Both pages use the same seed, so the pattern of pink and
+  // white squares is identical when the page changes (no visible jump).
+  // 一个"给同样的种子就给同样随机数"的生成器。两个页面用同一个种子，
+  // 所以换页时粉白方块的图案完全一样，看不出跳动。
+  function seededRandom(seed) {
+    return function () {
+      seed = (seed + 0x6d2b79f5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Smooth start and end for each square's growth. / 让每个方块的变化开头和结尾都更顺滑。
+  function ease(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+
+  // Build the grid of squares and the canvas to draw them on.
+  // 建立方块网格和用来画方块的画布。
+  function makeGrid(seed) {
+    const canvas = document.createElement("canvas");
+    canvas.className = "transition-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    // Added to <html> (not <body>) so it stays visible even while the body
+    // is hidden on arrival. / 加在 <html> 上（不是 <body>），这样到达时 body 隐藏也不影响它。
+    document.documentElement.appendChild(canvas);
+
+    const dpr = window.devicePixelRatio || 1;   // sharp on Retina screens / 在 Retina 屏上也清晰
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    const size = Math.max(24, Math.ceil(W / 32)); // square size: about 32 across the screen / 方块大小：一行大约 32 个
+    const cols = Math.ceil(W / size);
+    const rows = Math.ceil(H / size);
+    const rand = seededRandom(seed);
+    const mid = (cols - 1) / 2;
+    const cells = [];
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        // When does this square start? Lower rows start later (top → bottom),
+        // and squares near the middle start a bit later than the edges,
+        // which makes the arc that starts from the top corners.
+        // 这个方块什么时候开始？越往下越晚（从上到下），
+        // 越靠中间也稍晚一点，于是形成从顶部两角开始的弧形。
+        const down = r / Math.max(1, rows - 1);                 // 0 at top, 1 at bottom / 顶部 0，底部 1
+        const toMiddle = 1 - Math.abs(c - mid) / Math.max(1, mid); // 0 at the edges, 1 in the middle / 两边 0，中间 1
+        const start = (down * 0.72 + toMiddle * 0.2 + rand() * 0.08) * (1 - GROW);
+        cells.push({
+          x: c * size,
+          y: r * size,
+          start: start,
+          color: rand() < PINK_SHARE ? PINK : WHITE,
+        });
+      }
+    }
+    return { canvas: canvas, ctx: ctx, cells: cells, size: size, W: W, H: H };
+  }
+
+  // Draw one frame. progress goes from 0 to 1.
+  // covering = true: squares grow; false: squares shrink.
+  // 画一帧。progress 从 0 到 1。covering 为 true 时方块变大，为 false 时方块变小。
+  function drawFrame(grid, progress, covering) {
+    const ctx = grid.ctx;
+    ctx.clearRect(0, 0, grid.W, grid.H);
+    grid.cells.forEach(function (cell) {
+      let p = (progress - cell.start) / GROW;     // this square's own progress / 这个方块自己的进度
+      p = Math.min(1, Math.max(0, p));
+      const k = covering ? ease(p) : 1 - ease(p); // 0 = invisible, 1 = full size / 0 = 看不见，1 = 完整大小
+      if (k <= 0) return;
+      const s = grid.size * k + 1;                // +1px hides thin gaps between squares / 多 1 像素，避免方块间出现细缝
+      ctx.fillStyle = cell.color;
+      // grow from the square's center / 从方块中心向外长
+      ctx.fillRect(cell.x + (grid.size - s) / 2, cell.y + (grid.size - s) / 2, s, s);
+    });
+  }
+
+  // Play the animation for `duration` ms, then call `done`.
+  // 播放 duration 毫秒的动画，结束后执行 done。
+  function play(grid, duration, covering, done) {
+    const t0 = performance.now();
+    function frame(now) {
+      const progress = Math.min(1, (now - t0) / duration);
+      drawFrame(grid, progress, covering);
+      if (progress < 1) requestAnimationFrame(frame); // draw the next frame / 画下一帧
+      else if (done) done();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ARRIVING: if we came here through the clock, start fully covered,
+  // then reveal the page.
+  // 到达：如果是点时钟过来的，先全部盖住，再揭开页面。
+  const arrivingSeed = store("transition");
+  if (arrivingSeed) {
+    store("transition", "");                       // use it only once / 只用一次
+    const grid = makeGrid(parseInt(arrivingSeed, 10));
+    drawFrame(grid, 1, true);                      // fully covered right away / 一开始就完全盖住
+    // Show the page under the squares, without the usual fade-in.
+    // 显示方块下面的页面，不再播放平常的淡入。
+    document.documentElement.classList.add("no-fade");
+    document.documentElement.classList.remove("is-arriving");
+    play(grid, T_REVEAL, false, function () { grid.canvas.remove(); });
+  }
+
+
+  /* ---------- 5. The clock: drop + cover, then switch era / 时钟：下落 + 盖上，然后切换年代 ----------
+     The drop animation is in style.css (@keyframes drop). When the clock
+     is clicked we:
      1) stop the link from opening right away,
-     2) add the .is-dropping class to start the animation,
-     3) open the other landing page when the animation ends.
-     下落动画写在 style.css（@keyframes drop）里。这里做三件事：
-     1）阻止链接马上跳转；2）加上 .is-dropping 开始播放动画；3）动画结束后再打开另一个首页。 */
+     2) add .is-dropping so the clock drops, and start covering the screen,
+     3) open the other landing page when the screen is covered.
+     下落动画写在 style.css（@keyframes drop）里。点击时钟时：
+     1）阻止链接马上跳转；2）加上 .is-dropping 让时钟下落，同时开始用方块盖住屏幕；
+     3）屏幕盖满后再打开另一个首页。 */
   const clock = document.querySelector(".era-switch");
 
   if (clock) {
+    const clockImg = clock.querySelector("img");
+    let settle = null; // the "slowing down" animation, while it plays / 正在播放的"慢慢停下"动画
+
+    // Read the watch's current angle (in degrees) from the browser.
+    // 从浏览器读出怀表现在的角度（度）。
+    function currentAngle() {
+      const t = getComputedStyle(clockImg).transform;
+      if (!t || t === "none") return 0;
+      const m = new DOMMatrix(t);
+      return Math.atan2(m.b, m.a) * 180 / Math.PI;
+    }
+
+    // Mouse enters: start swinging (from rest, or from where it was settling).
+    // 鼠标进入：开始摆动。
+    clock.addEventListener("pointerenter", function () {
+      if (reduceMotion) return;
+      if (settle) { settle.cancel(); settle = null; }
+      clock.classList.add("is-swinging");
+    });
+
+    // Mouse leaves: instead of snapping back, the watch keeps swinging a few
+    // times, each smaller than the last, then stops, like a real pendulum.
+    // 鼠标离开：怀表不会一下子弹回原位，而是继续摆几下、一下比一下小，然后停住，像真的钟摆。
+    clock.addEventListener("pointerleave", function () {
+      if (!clock.classList.contains("is-swinging")) return;
+      if (clock.classList.contains("is-dropping")) return;      // leaving because the page is changing / 页面正在切换，不用处理
+      const a = currentAngle();                                 // where the swing is right now / 摆到哪里了
+      const start = Math.abs(a) < 3 ? (a < 0 ? -5 : 5) : a;     // always give it a little swing / 至少再轻轻摆一下
+      clock.classList.remove("is-swinging");
+      // Each keyframe swings to the other side, with a smaller angle.
+      // "ease-in-out" on each step slows down at the ends of every swing, like a pendulum.
+      // 每一帧摆到另一边，角度越来越小。每一段都用 ease-in-out，在摆到两端时放慢，像钟摆一样。
+      const swing = "ease-in-out";
+      settle = clockImg.animate([
+        { transform: "rotate(" + a + "deg)", easing: swing },
+        { transform: "rotate(" + (-start * 0.6) + "deg)", easing: swing },
+        { transform: "rotate(" + (start * 0.32) + "deg)", easing: swing },
+        { transform: "rotate(" + (-start * 0.14) + "deg)", easing: swing },
+        { transform: "rotate(0deg)" },
+      ], { duration: 1400 });
+      settle.onfinish = function () { settle = null; };
+    });
+
     clock.addEventListener("click", function (ev) {
       // Let Cmd/Ctrl-click open a new tab as usual; skip the animation if
       // motion is reduced. / Cmd/Ctrl+点击照常开新标签页；关闭动态效果时也不播放动画。
@@ -269,21 +449,29 @@
       if (clock.classList.contains("is-dropping")) return; // ignore double clicks / 忽略连点
 
       clock.classList.add("is-dropping");
+
+      const seed = Math.floor(Math.random() * 1e9);  // a new pattern every time / 每次都是新的图案
+      const grid = makeGrid(seed);
+
       let gone = false; // make sure we only navigate once / 确保只跳转一次
       const go = function () {
         if (gone) return;
         gone = true;
+        store("transition", String(seed));           // tell the next page to reveal with the same pattern / 告诉下一页用同样的图案揭开
         window.location.href = clock.href;
       };
-      clock.addEventListener("animationend", function (e) {
-        if (e.animationName === "drop") go();
-      });
-      setTimeout(go, 800); // backup, in case the animation doesn't fire / 保险：万一动画事件没触发也能跳转
+      play(grid, T_COVER, true, go);
+      setTimeout(go, T_COVER + 400); // backup, in case the animation is paused / 保险：万一动画被暂停也能跳转
     });
 
     // When you come back with the browser's Back button, the page may be
-    // restored from memory with the clock still "dropped". Reset it.
-    // 用浏览器的返回键回来时，页面可能是从缓存恢复的，时钟还停在掉下去的位置，这里把它复原。
-    window.addEventListener("pageshow", function () { clock.classList.remove("is-dropping"); });
+    // restored from memory with the clock "dropped" and the squares still
+    // covering it. Reset both.
+    // 用浏览器返回键回来时，页面可能是从缓存恢复的，时钟还在下面、方块还盖着。这里把两者都复原。
+    window.addEventListener("pageshow", function (e) {
+      if (!e.persisted) return;
+      clock.classList.remove("is-dropping");
+      document.querySelectorAll(".transition-canvas").forEach(function (c) { c.remove(); });
+    });
   }
 })();

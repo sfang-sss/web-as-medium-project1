@@ -18,6 +18,20 @@
 
   <!-- All the site's styles / 全站的样式 -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Square transition: if we arrived by clicking the clock, hide the page
+       until main.js draws the squares (it removes this class right away).
+       The setTimeout is a safety net so the page can never stay hidden.
+       方块转场：如果是点时钟过来的，先隐藏页面，等 main.js 画好方块（它会马上移除这个 class）。
+       setTimeout 是保险，保证页面不会一直隐藏。 -->
+  <script>
+    try {
+      if (sessionStorage.getItem("transition")) {
+        document.documentElement.classList.add("is-arriving");
+        setTimeout(function () { document.documentElement.classList.remove("is-arriving"); }, 1500);
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body class="landing landing--2026">
   <!-- ========== LANDING PAGE (2026) / 首页（2026） ==========
