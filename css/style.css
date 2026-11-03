@@ -1,12 +1,10 @@
 /* =========================================================
    The Comfort of Looking Back — style.css
-   网站的全部样式都在这个文件里。
 
-   HOW SIZES WORK / 尺寸是怎么算的
+   HOW SIZES WORK /
    The Figma frames are 1920px wide. To keep the layout the same on any
    screen, most sizes are written as "Figma pixels":
-   Figma 画板宽 1920px。为了让网页在任何屏幕上比例都一样，
-   大部分尺寸都写成「Figma 里的像素值」：
+
 
    - Landing pages / 首页:   calc(N * 100cqw / 1920)
        100cqw = the full width of the collage. So N Figma px always
@@ -20,10 +18,9 @@
 
 
 /* ---------- 1. Design tokens / 全站共用的颜色和字体 ----------
-   Change a value here and it updates everywhere on the site.
-   在这里改一个值，全站用到它的地方都会一起变。 */
+   Change a value here and it updates everywhere on the site. */
 :root {
-  --pink: #e93392;        /* accent pink / 主题粉色 */
+  --pink: #e93392;        /* accent pink / 
   --ink: #000;            /* main text color / 主要文字颜色 */
   --ink-2000s: #302c2c;   /* title color on the 2000s page / 2000s 首页标题颜色 */
   --card: #e6e3dd;        /* grey card behind object photos / 物品图片后面的灰色底 */
@@ -36,12 +33,11 @@
   /* Font list: the browser uses the first one that is available.
      Oldschool Grotesk is used if it is installed on the computer;
      otherwise Archivo (loaded from Google Fonts) takes its place.
-     字体列表：浏览器会用第一个能用的字体。电脑装了 Oldschool Grotesk 就用它，
-     否则用从 Google Fonts 加载的 Archivo 代替。 */
+    
+     Google Fonts 加载的 Archivo 代替。 */
   --font: "Oldschool Grotesk Condensed Var Trial", "Oldschool Grotesk Condensed", "Archivo", "Arial Narrow", sans-serif;
 
-  /* Clock size, fixed in real pixels so it never scales or stretches.
-     时钟尺寸用固定像素，不会随窗口缩放或被拉长。 */
+  /* Clock size, fixed in real pixels so it never scales or stretches. */
   --clock-w: 108px;
 }
 
@@ -49,7 +45,7 @@
 /* ---------- 2. Base styles / 基础样式 ---------- */
 
 /* Width and height include padding and border (easier to size boxes).
-   让 width/height 包含内边距和边框，盒子尺寸更好算。 */
+   */
 *,
 *::before,
 *::after { box-sizing: border-box; }
