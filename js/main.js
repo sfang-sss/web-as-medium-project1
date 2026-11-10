@@ -12,8 +12,9 @@
       算出每张图片哪些地方是看得见的（不透明的）。
    3. Hover and click on the objects (they can't be dragged).
       物体的悬停和点击（物体不能拖动）。
-   4. The square transition between the two landing pages (2 seconds).
-      两个首页之间的方块转场（2 秒）。
+   4. The transition between the two landing pages (2 seconds): blur (in use)
+      or squares. Switch with TRANSITION_STYLE.
+      两个首页之间的转场（2 秒）：模糊（现在用的）或方块，用 TRANSITION_STYLE 切换。
    5. The clock: drops down when clicked, squares cover the screen, then the
       other landing page opens and the squares clear away.
       时钟：点击后往下掉一点，方块盖满屏幕，然后打开另一个首页，方块再散开。
@@ -200,6 +201,18 @@
        - 揭开（1 秒，在到达的页面）：同样的方块按同样的顺序从上往下缩小消失，露出新页面。
      方块画在一个盖在最上层的 <canvas>（画布）上。 */
 
+  // >>> WHICH TRANSITION TO USE / 用哪种转场 <<<
+  //   "blur"    = the page blurs out, the next page sharpens in (in use now)
+  //   "squares" = pink and white squares cover and reveal the screen
+  //   "blur"    = 页面变模糊淡出，下一页从模糊变清晰（现在用的）
+  //   "squares" = 粉白方块盖住屏幕再揭开
+  const TRANSITION_STYLE = "blur";
+
+  // Blur timing comes from --blur-time in settings.css (e.g. "1s" → 1000 ms).
+  // 模糊转场的时间读取 settings.css 里的 --blur-time（例如 "1s" → 1000 毫秒）。
+  const BLUR_TIME = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--blur-time")) || 1) * 1000;
+
+  // ----- Square transition settings / 方块转场的设置 -----
   const T_COVER = 1000;          // cover time in ms / 盖上用时（毫秒）
   const T_REVEAL = 1000;         // reveal time in ms / 揭开用时（毫秒）
   const GROW = 0.32;             // each square takes 32% of the time to grow / 每个方块用 32% 的时间长大
@@ -305,7 +318,22 @@
   // then reveal the page.
   // 到达：如果是点时钟过来的，先全部盖住，再揭开页面。
   const arrivingSeed = store("transition");
-  if (arrivingSeed) {
+  if (arrivingSeed === "blur") {
+    // BLUR, arriving: the page starts blurred (class added in the HTML <head>);
+    // removing that class lets CSS animate it back to sharp.
+    // 模糊转场，到达：页面一开始是模糊的（class 在 HTML 的 <head> 里加上），
+    // 去掉这个 class 后，CSS 会让它慢慢变清晰。
+    store("transition", "");                       // use it only once / 只用一次
+    const root = document.documentElement;
+    root.classList.add("no-fade", "blur-in");
+    requestAnimationFrame(function () {            // wait one frame so the blurred state is drawn first / 等一帧，先画出模糊的样子
+      requestAnimationFrame(function () {
+        root.classList.remove("is-arriving-blur");
+        setTimeout(function () { root.classList.remove("blur-in"); }, BLUR_TIME + 100);
+      });
+    });
+  } else if (arrivingSeed) {
+    // SQUARES, arriving / 方块转场，到达
     store("transition", "");                       // use it only once / 只用一次
     const grid = makeGrid(parseInt(arrivingSeed, 10));
     drawFrame(grid, 1, true);                      // fully covered right away / 一开始就完全盖住
@@ -381,6 +409,18 @@
 
       clock.classList.add("is-dropping");
 
+      if (TRANSITION_STYLE === "blur") {
+        // BLUR, leaving: blur and fade the page out, then open the other page.
+        // 模糊转场，离开：页面变模糊淡出，然后打开另一个首页。
+        document.documentElement.classList.add("is-leaving");
+        setTimeout(function () {
+          store("transition", "blur");               // tell the next page to sharpen in / 告诉下一页从模糊变清晰
+          window.location.href = clock.href;
+        }, BLUR_TIME);
+        return;
+      }
+
+      // SQUARES, leaving / 方块转场，离开
       const seed = Math.floor(Math.random() * 1e9);  // a new pattern every time / 每次都是新的图案
       const grid = makeGrid(seed);
 
@@ -402,6 +442,7 @@
     window.addEventListener("pageshow", function (e) {
       if (!e.persisted) return;
       clock.classList.remove("is-dropping");
+      document.documentElement.classList.remove("is-leaving");
       document.querySelectorAll(".transition-canvas").forEach(function (c) { c.remove(); });
     });
   }

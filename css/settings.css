@@ -95,6 +95,12 @@
   --index-columns: 6;        /* cards per row / 每行几张 */
   --index-card-ratio: 3 / 4; /* card width / height / 卡片的宽 / 高 */
   --index-gap: 24px;         /* space between cards / 卡片之间的间距 */
+
+  /* ===== TRANSITION BETWEEN THE LANDING PAGES / 两个首页之间的转场 =====
+     Used by the blur transition (see TRANSITION_STYLE in js/main.js).
+     模糊转场用的数值（转场类型见 js/main.js 里的 TRANSITION_STYLE）。 */
+  --blur-amount: 18px;       /* how blurry it gets: bigger = blurrier / 模糊程度：越大越模糊 */
+  --blur-time: 1s;           /* each half: blur out 1s, then sharpen 1s / 每一半的时间：变模糊 1 秒，变清晰 1 秒 */
 }
 
 

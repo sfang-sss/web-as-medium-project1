@@ -22,16 +22,18 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/landing.css">
 
-  <!-- Square transition: if we arrived by clicking the clock, hide the page
-       until main.js draws the squares (it removes this class right away).
+  <!-- Transition: if we arrived by clicking the clock, hide the page until
+       main.js starts the transition (blur or squares; it removes this class right away).
        The setTimeout is a safety net so the page can never stay hidden.
        方块转场：如果是点时钟过来的，先隐藏页面，等 main.js 画好方块（它会马上移除这个 class）。
        setTimeout 是保险，保证页面不会一直隐藏。 -->
   <script>
     try {
-      if (sessionStorage.getItem("transition")) {
-        document.documentElement.classList.add("is-arriving");
-        setTimeout(function () { document.documentElement.classList.remove("is-arriving"); }, 1500);
+      var t = sessionStorage.getItem("transition");   // "blur", or a number for the square transition / "blur"，或方块转场的编号
+      if (t) {
+        var c = (t === "blur") ? "is-arriving-blur" : "is-arriving";
+        document.documentElement.classList.add(c);
+        setTimeout(function () { document.documentElement.classList.remove(c); }, 2500);
       }
     } catch (e) {}
   </script>

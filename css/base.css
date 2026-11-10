@@ -190,6 +190,31 @@ html.is-arriving { background: var(--pink); }
 html.is-arriving body { animation: none; visibility: hidden; }
 html.no-fade body { animation: none; }
 
+/* Blur transition (the one in use now; see TRANSITION_STYLE in js/main.js).
+   Leaving:  the page blurs and fades out.
+   Arriving: the new page starts blurred and invisible, then sharpens and fades in.
+   Amount and speed: --blur-amount and --blur-time in settings.css.
+   模糊转场（现在用的；见 js/main.js 里的 TRANSITION_STYLE）。
+   离开时：页面变模糊并淡出。到达时：新页面从模糊、透明开始，慢慢变清晰、显现。
+   模糊程度和速度：settings.css 里的 --blur-amount 和 --blur-time。 */
+html.is-leaving body {
+  filter: blur(var(--blur-amount));
+  opacity: 0;
+  transition: filter var(--blur-time) ease-in,
+              opacity var(--blur-time) cubic-bezier(0.7, 0, 0.9, 0.6); /* fades out mostly at the end, so the blur is visible first / 主要在后段淡出，先看到模糊 */
+}
+
+html.is-arriving-blur body {
+  filter: blur(var(--blur-amount));
+  opacity: 0;
+  animation: none;
+}
+
+html.blur-in body {
+  transition: filter var(--blur-time) ease-out,
+              opacity var(--blur-time) cubic-bezier(0.1, 0.4, 0.3, 1); /* appears early, then keeps sharpening / 先显现，再继续变清晰 */
+}
+
 
 /* ---------- Reduced motion / 减少动态效果 ----------
    If the visitor turned on "Reduce motion" in their system settings,
