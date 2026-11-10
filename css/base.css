@@ -2,12 +2,10 @@
    The Comfort of Looking Back — base.css
    Shared basics: page setup, the top bar (About / Home, site name, clock)
    and the square transition between the two landing pages.
-   全站共用的基础样式：页面基本设置、顶部栏（About / Home、网站名、时钟）、两个首页之间的方块转场。
-   Used by / 用在: every page / 所有页面
    ========================================================= */
 
 
-/* ---------- Base styles / 基础样式 ---------- */
+/* ---------- Base styles /  ---------- */
 
 /* Width and height include padding and border (easier to size boxes).
    */
@@ -29,16 +27,13 @@ body {
   animation: page-in 0.5s ease both; /* every page fades in / 每个页面打开时淡入 */
 }
 
-/* Images behave like blocks and never overflow their container.
-   图片当作块元素，并且不会超出它的容器。 */
+/* Images behave like blocks and never overflow their container. */
 img { display: block; max-width: 100%; }
 
-/* Links use the surrounding text color by default (not browser blue).
-   链接默认用周围文字的颜色，而不是浏览器的蓝色。 */
+/* Links use the surrounding text color by default (not browser blue).。 */
 a { color: inherit; }
 
-/* Hidden on screen but still read by screen readers (accessibility).
-   屏幕上看不见，但读屏软件能读到（无障碍）。 */
+/* Hidden on screen but still read by screen readers (accessibility). */
 .visually-hidden {
   position: absolute !important;
   width: 1px; height: 1px;
@@ -47,8 +42,7 @@ a { color: inherit; }
   white-space: nowrap;
 }
 
-/* Pink outline when moving through links with the Tab key.
-   用 Tab 键切换链接时显示粉色外框。 */
+/* Pink outline when moving through links with the Tab key. */
 :focus-visible {
   outline: 3px solid var(--pink);
   outline-offset: 4px;
@@ -63,8 +57,7 @@ a { color: inherit; }
 /* ---------- Header: About / Home link and the clock / 顶部：About、Home 链接和时钟 ---------- */
 
 /* The nav floats on top of the page. It ignores the mouse itself,
-   so only the links inside it can be clicked.
-   导航浮在页面最上层。它本身不接收鼠标，只有里面的链接能点。 */
+   so only the links inside it can be clicked. */
 .site-header nav {
   position: absolute;
   inset: 0 0 auto 0;
@@ -72,8 +65,7 @@ a { color: inherit; }
   pointer-events: none;
 }
 
-/* "About" (on landing pages) and "Home" (on other pages).
-   首页上的 "About" 和其他页面上的 "Home"。 */
+/* "About" (on landing pages) and "Home" (on other pages). */
 .nav-link {
   position: absolute;
   top: var(--nav-top);       /* "Home": see --nav-top in settings.css / 见 settings.css 里的 --nav-top */
@@ -90,8 +82,7 @@ a { color: inherit; }
 /* Site name "The Comfort of Looking Back", centered at the top of both
    landing pages, in 50% black. Plain text
    >>> Font size: change the 40 in "font-size" below (40 = Figma px). <<<
-   两个首页顶部居中的网站名，50% 黑色（来自 Figma）
-   >>> 字号：改下面 font-size 里的 40（Figma 里的像素值）。<<< */
+   >>> <<< */
 .site-name {
   position: absolute;
   top: max(8px, calc(18 * 100vw / 1920));
@@ -113,13 +104,10 @@ a { color: inherit; }
 }
 
 /* The clock switches between the 2026 and 2000s landing pages.
-   Its size is fixed in px, so it keeps its shape on every screen.
-   时钟用来在 2026 和 2000s 首页之间切换。
-   尺寸用固定像素，所以在任何屏幕上都保持原样。 */
+   Its size is fixed in px, so it keeps its shape on every screen.*/
 .era-switch {
   position: absolute;
-  /* Position and size: see --clock-top, --clock-right, --clock-w in settings.css.
-     位置和大小：见 settings.css 里的 --clock-top、--clock-right、--clock-w。 */
+  /* Position and size: see --clock-top, --clock-right, --clock-w in settings.css. */
   top: var(--clock-top);
   right: var(--clock-right);
   opacity: 0.7;              /* 70%, as in Figma / 70% 透明度，和 Figma 一致 */
@@ -128,8 +116,7 @@ a { color: inherit; }
   -webkit-tap-highlight-color: transparent;
 }
 
-/* width fixed, height:auto keeps the original proportions (no stretching).
-   宽度固定，高度 auto，保持原图比例，不会被拉长。 */
+/* width fixed, height:auto keeps the original proportions (no stretching). */
 
 .era-switch img {
   width: 100%;
@@ -141,10 +128,7 @@ a { color: inherit; }
 /* Hover: the watch swings left and right. JS adds .is-swinging when the
    mouse enters, and when it leaves, JS lets the swing slow down and settle
    (see js/main.js, part 5).
-   The swing starts and ends at 0deg, so it starts smoothly from rest.
-   悬停：怀表左右摆动。鼠标进入时 JS 加上 .is-swinging；鼠标离开时，
-   JS 让摆动慢慢减弱、停下来（见 js/main.js 第 5 部分）。
-   摆动从 0 度开始，所以开始时也很自然，不会突然跳到一边。 */
+   The swing starts and ends at 0deg, so it starts smoothly from rest. */
 .era-switch.is-swinging img { animation: tick 1.2s ease-in-out infinite; }
 
 @keyframes tick {
@@ -155,9 +139,7 @@ a { color: inherit; }
 }
 
 /* Click: JS adds .is-dropping, the watch drops down a little with a small
-   bounce, then the other landing page opens (see js/main.js, part 4).
-   点击：JS 加上 .is-dropping 这个 class，怀表往下掉一点并轻轻弹一下，
-   然后打开另一个首页（见 js/main.js 第 4 部分）。 */
+   bounce, then the other landing page opens (see js/main.js, part 4). */
 .era-switch.is-dropping { animation: drop 0.55s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
 .era-switch.is-dropping img { animation-play-state: paused; } /* freeze the swing while dropping / 下落时停止摆动 */
 
@@ -183,9 +165,7 @@ a { color: inherit; }
 
 /* While a page is arriving through the transition, skip the usual fade-in
    (the squares do the revealing instead) and keep the background pink so
-   nothing flashes before the squares are drawn.
-   通过转场到达页面时，不用平常的淡入（由方块来揭开页面），
-   背景先设为粉色，避免方块画出来之前闪一下。 */
+   nothing flashes before the squares are drawn. */
 html.is-arriving { background: var(--pink); }
 html.is-arriving body { animation: none; visibility: hidden; }
 html.no-fade body { animation: none; }
@@ -193,10 +173,7 @@ html.no-fade body { animation: none; }
 /* Blur transition (the one in use now; see TRANSITION_STYLE in js/main.js).
    Leaving:  the page blurs and fades out.
    Arriving: the new page starts blurred and invisible, then sharpens and fades in.
-   Amount and speed: --blur-amount and --blur-time in settings.css.
-   模糊转场（现在用的；见 js/main.js 里的 TRANSITION_STYLE）。
-   离开时：页面变模糊并淡出。到达时：新页面从模糊、透明开始，慢慢变清晰、显现。
-   模糊程度和速度：settings.css 里的 --blur-amount 和 --blur-time。 */
+   Amount and speed: --blur-amount and --blur-time in settings.css.*/
 html.is-leaving body {
   filter: blur(var(--blur-amount));
   opacity: 0;
@@ -218,8 +195,7 @@ html.blur-in body {
 
 /* ---------- Reduced motion / 减少动态效果 ----------
    If the visitor turned on "Reduce motion" in their system settings,
-   switch off all animations.
-   如果访问者在系统设置里开启了"减少动态效果"，就关掉所有动画。 */
+   switch off all animations. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
