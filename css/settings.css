@@ -45,8 +45,8 @@
      measured from the edges of the window (values from Figma).
      About（其他页面是 Home）和时钟的位置，单位像素，从窗口边缘量起（数值来自 Figma）。 */
   --nav-left: 95px;          /* About / Home: distance from the LEFT edge / 离左边 */
-  --nav-top-2026: 107px;     /* About on the 2026 page: distance from the TOP / 2026 首页 About 离顶部 */
-  --nav-top-2000s: 102px;    /* About on the 2000s page: distance from the TOP / 2000s 首页 About 离顶部 */
+  --nav-top-2026: 102px;     /* About on the 2026 page: distance from the TOP / 2026 首页 About 离顶部 */
+  --nav-top-2000s: 104px;    /* About on the 2000s page: distance from the TOP / 2000s 首页 About 离顶部 */
   --nav-top: 102px;          /* Home on item pages & the About page / 详情页和 About 页的 Home 离顶部 */
   --clock-right: 86px;       /* clock: distance from the RIGHT edge / 时钟离右边 */
   --clock-top: 93px;        /* clock: distance from the TOP (bigger = lower) / 时钟离顶部（越大越靠下） */
@@ -80,6 +80,7 @@
   --explore-top: 80px;           /* source note → "Explore more" / 来源说明到 Explore more */
   --explore-title-gap: 10px;     /* "Explore more" → cards / Explore more 到卡片 */
   --explore-gap: 54px;           /* gap between the 4 cards / 4 张卡片之间 */
+
 
   /* About page / About 页 */
   --aboutpage-top: 163px;        /* top of page → title / 页面顶部到标题 */

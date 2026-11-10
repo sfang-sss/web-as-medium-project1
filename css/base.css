@@ -109,6 +109,7 @@ a { color: inherit; }
   font-family: Georgia, "Times New Roman", serif;
   font-stretch: normal;
   font-weight: 700;
+  font-size: max(5px, calc(24 * 100vw / 1920));
 }
 
 /* The clock switches between the 2026 and 2000s landing pages.

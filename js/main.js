@@ -10,8 +10,8 @@
       让首页上每个物体都有自己的飘动方式。
    2. Works out which parts of each image are visible (not transparent).
       算出每张图片哪些地方是看得见的（不透明的）。
-   3. Hover, drag and click on the objects.
-      物体的悬停、拖拽和点击。
+   3. Hover and click on the objects (they can't be dragged).
+      物体的悬停和点击（物体不能拖动）。
    4. The square transition between the two landing pages (2 seconds).
       两个首页之间的方块转场（2 秒）。
    5. The clock: drops down when clicked, squares cover the screen, then the
@@ -83,11 +83,9 @@
     s.setProperty("--float-dur", rand(3.5, 7).toFixed(2) + "s");     // how slow / 飘一次多久
     s.setProperty("--float-delay", (-rand(0, 7)).toFixed(2) + "s");  // start at a random point / 从随机的位置开始
 
-    // Starting values used by dragging (see part 3).
-    // 拖拽要用到的初始值（见第 3 部分）。
-    a.dataset.dx = "0";                                    // dragged distance, x / 横向拖了多远
-    a.dataset.dy = "0";                                    // dragged distance, y / 纵向拖了多远
-    a.dataset.r = parseFloat(s.getPropertyValue("--r")) || 0; // rotation from Figma / Figma 里的旋转角度
+    // Rotation from Figma, used to check clicks against the rotated image (part 2).
+    // Figma 里的旋转角度，判断点击位置时要用到（第 2 部分）。
+    a.dataset.r = parseFloat(s.getPropertyValue("--r")) || 0;
   });
 
 
@@ -109,10 +107,6 @@
     }
     a._mask = bits;
   });
-
-  // z-index counter: the last object you picked up goes on top.
-  // 层级计数器：最后拿起的物体放在最上面。
-  let zTop = 100;
 
   // Is the point (x, y) on a visible part of this object?
   // 点 (x, y) 是不是落在这个物体看得见的部分上？
@@ -138,9 +132,8 @@
     return a._mask[Math.floor(v * MASK_SIZE) * MASK_SIZE + Math.floor(u * MASK_SIZE)] === 1;
   }
 
-  // Find the topmost object under the mouse (highest z-index wins;
-  // if equal, the one that comes later in the HTML is on top).
-  // 找出鼠标下方最上面的那个物体（z-index 高的优先；一样高就看 HTML 里谁在后面）。
+  // Find the topmost object under the mouse (the one that comes later in
+  // the HTML is on top). / 找出鼠标下方最上面的那个物体（HTML 里越靠后的越在上面）。
   function objectAt(x, y) {
     let best = null;
     let bestZ = -Infinity;
@@ -152,10 +145,12 @@
   }
 
 
-  /* ---------- 3. Hover, drag and click / 悬停、拖拽和点击 ---------- */
+  /* ---------- 3. Hover and click / 悬停和点击 ----------
+     Objects can't be dragged; they float in place. Hovering shows the pink
+     glow and name tag, and clicking opens the object's item page.
+     物体不能拖动，只在原地飘动。悬停时显示粉色光晕和名字标签，点击打开物品详情页。 */
 
   let hovered = null; // the object under the mouse right now / 鼠标当前停在哪个物体上
-  let drag = null;    // info about the current drag, or null / 正在拖拽的信息，没在拖时是 null
 
   // Turn the hover effect (pink glow + name tag) on for one object.
   // 给一个物体打开悬停效果（粉色光晕 + 名字标签）。
@@ -167,85 +162,21 @@
     collage.classList.toggle("has-hover", !!a); // show the pointer cursor / 显示小手指针
   }
 
-  // Mouse moves: either move the dragged object, or update the hover effect.
-  // 鼠标移动时：如果正在拖拽就移动物体，否则更新悬停效果。
+  // Mouse moves: find the visible object under it and highlight it.
+  // 鼠标移动：找出鼠标下面看得见的物体，并高亮它。
   collage.addEventListener("pointermove", function (ev) {
-    if (drag) {
-      const cqw = collage.clientWidth / 100;  // 1cqw in px / 1cqw 等于多少像素
-      const mx = ev.clientX - drag.startX;    // how far the mouse moved / 鼠标移动了多远
-      const my = ev.clientY - drag.startY;
-      // Moving less than 5px still counts as a click, not a drag.
-      // 移动不到 5px 还算点击，不算拖拽。
-      if (!drag.moved && Math.hypot(mx, my) < 5) return;
-      if (!drag.moved) {
-        drag.moved = true;
-        drag.el.classList.add("is-dragging");  // stop floating + shadow / 停止飘动 + 阴影
-        collage.classList.add("is-grabbing");  // grabbing cursor / 抓取指针
-      }
-      // Distance is saved in cqw, so it stays right if the window is resized.
-      // 距离用 cqw 保存，改变窗口大小时位置也不会错。
-      const dx = drag.baseDx + mx / cqw;
-      const dy = drag.baseDy + my / cqw;
-      drag.el.dataset.dx = dx;
-      drag.el.dataset.dy = dy;
-      drag.el.style.setProperty("--dx", dx.toFixed(3)); // CSS uses --dx/--dy to move it / CSS 用 --dx/--dy 来移动它
-      drag.el.style.setProperty("--dy", dy.toFixed(3));
-      return;
-    }
     if (ev.pointerType === "mouse") setHover(objectAt(ev.clientX, ev.clientY));
   });
 
   // Mouse leaves the collage: remove hover. / 鼠标离开拼贴区域：取消悬停。
-  collage.addEventListener("pointerleave", function () { if (!drag) setHover(null); });
+  collage.addEventListener("pointerleave", function () { setHover(null); });
 
-  // Mouse button pressed: pick up the object under the mouse.
-  // 按下鼠标：拿起鼠标下面的物体。
-  collage.addEventListener("pointerdown", function (ev) {
-    if (ev.button !== 0) return; // left button only / 只响应左键
+  // Click (or tap on a phone): open the page of the object under the pointer.
+  // 点击（手机上是轻点）：打开鼠标下面那个物体的详情页。
+  collage.addEventListener("click", function (ev) {
+    if (ev.detail === 0) return;   // keyboard Enter on a focused object: let the link work normally / 键盘回车：让链接照常打开
     const a = objectAt(ev.clientX, ev.clientY);
-    if (!a) return;              // pressed on empty space / 按在空白处
-    ev.preventDefault();
-    zTop += 1;
-    a.style.zIndex = zTop;       // bring it to the front / 放到最上层
-    drag = {
-      el: a,                                 // the object / 被拖的物体
-      startX: ev.clientX,                    // where the mouse started / 鼠标起点
-      startY: ev.clientY,
-      baseDx: parseFloat(a.dataset.dx),      // where the object already was / 物体原来已经被拖到的位置
-      baseDy: parseFloat(a.dataset.dy),
-      moved: false,                          // becomes true once it's a real drag / 真正拖动后变成 true
-      pointerId: ev.pointerId,
-    };
-    // Keep receiving mouse events even if the mouse leaves the collage.
-    // 鼠标移出拼贴区域也继续接收事件。
-    try { collage.setPointerCapture(ev.pointerId); } catch (e) { /* ignore */ }
-  });
-
-  // Mouse button released: put the object down.
-  // If the mouse barely moved, it was a click, so open the object's page.
-  // 松开鼠标：放下物体。如果鼠标几乎没动，就是点击，打开这个物体的页面。
-  function endDrag(ev, cancelled) {
-    if (!drag || ev.pointerId !== drag.pointerId) return;
-    const d = drag;
-    drag = null;
-    collage.classList.remove("is-grabbing");
-    d.el.classList.remove("is-dragging");
-    if (!d.moved && !cancelled) {
-      window.location.href = d.el.href; // go to the item page / 跳到物品详情页
-    }
-  }
-
-  collage.addEventListener("pointerup", function (ev) { endDrag(ev, false); });
-  collage.addEventListener("pointercancel", function (ev) { endDrag(ev, true); });
-
-  // The objects are real <a> links. Mouse clicks are handled above, so we
-  // block the browser's own click; keyboard (Tab + Enter) still works normally.
-  // 物体本身是真正的 <a> 链接。鼠标点击已经在上面处理了，所以拦下浏览器自己的点击；
-  // 键盘操作（Tab + Enter）仍然正常。
-  objects.forEach(function (a) {
-    a.addEventListener("click", function (ev) {
-      if (ev.detail !== 0) ev.preventDefault(); // detail is 0 for keyboard clicks / 键盘触发时 detail 是 0
-    });
+    if (a) window.location.href = a.href;
   });
 
   // Respect "Reduce motion": no floating. / 尊重"减少动态效果"：不飘动。

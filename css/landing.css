@@ -1,7 +1,7 @@
 /* =========================================================
    The Comfort of Looking Back — landing.css
-   The two landing pages: the collage, the objects, floating, hover and dragging.
-   两个首页：拼贴画、物体、飘动、悬停和拖拽。
+   The two landing pages: the collage, the objects, floating and hover.
+   两个首页：拼贴画、物体、飘动和悬停。
    Used by / 用在: index.html, 2000s.html
    ========================================================= */
 
@@ -13,11 +13,10 @@
 .collage {
   position: relative;
   aspect-ratio: 1920 / var(--landing-h-2026);   /* page length: see --landing-h-2026 in settings.css / 页面长度：见 settings.css 里的 --landing-h-2026 */
-  overflow: hidden;              /* hide objects dragged off the edge / 拖出边界的部分隐藏 */
+  overflow: hidden;              /* hide anything that sticks out past the edges / 超出边界的部分隐藏 */
   container-type: inline-size;   /* lets children use "cqw" units / 让里面的元素可以用 cqw 单位 */
   isolation: isolate;
-  touch-action: pan-y pinch-zoom; /* on phones, vertical swipes still scroll / 手机上竖向滑动仍然可以滚动页面 */
-  user-select: none;              /* no text highlighting while dragging / 拖拽时不会选中文字 */
+  user-select: none;              /* no text highlighting when clicking objects / 点击物体时不会选中文字 */
   -webkit-user-select: none;
 }
 
@@ -80,17 +79,15 @@
 
 /* One object on the landing page.
    --x, --y, --w, --h, --r come from Figma (written in the HTML).
-   --dx, --dy are added by JS when the user drags it.
    首页上的一个物体。
-   --x, --y, --w, --h, --r 是 Figma 里的位置、大小、角度（写在 HTML 里）。
-   --dx, --dy 是用户拖拽时 JS 加上的移动距离。 */
+   --x, --y, --w, --h, --r 是 Figma 里的位置、大小、角度（写在 HTML 里）。 */
 .object {
   position: absolute;
   left: calc(var(--x) * 100cqw / 1920);
   top: calc(var(--y) * 100cqw / 1920);
   width: calc(var(--w) * 100cqw / 1920);
   height: calc(var(--h) * 100cqw / 1920);
-  transform: translate(calc(var(--dx, 0) * 1cqw), calc(var(--dy, 0) * 1cqw)) rotate(var(--r, 0deg));
+  transform: rotate(var(--r, 0deg));   /* rotation from Figma / Figma 里的旋转角度 */
   /* The mouse is handled by JS, which checks the visible pixels of each
      image, so transparent corners don't block objects underneath.
      鼠标交给 JS 处理：JS 只认图片里看得见的部分，
@@ -120,13 +117,6 @@
 .object.is-hover img,
 .object:focus-visible img { filter: drop-shadow(0 0 calc(10 * 100cqw / 1920) rgba(233, 51, 146, 0.55)); }
 
-/* Dragging: stop floating and add a shadow, like it was lifted up.
-   拖拽中：停止飘动并加阴影，像被拿起来一样。 */
-.object.is-dragging img {
-  animation-play-state: paused;
-  filter: drop-shadow(0 calc(24 * 100cqw / 1920) calc(30 * 100cqw / 1920) rgba(0, 0, 0, 0.25));
-}
-
 /* Pink name tag that appears on hover. The text comes from data-label in the HTML.
    悬停时出现的粉色名字标签，文字来自 HTML 里的 data-label。 */
 .object::after {
@@ -147,13 +137,9 @@
 
 .object.is-hover::after,
 .object:focus-visible::after { opacity: 1; }
-.object.is-dragging::after { opacity: 0; }
 
-/* Mouse cursor: pointer over an object, grabbing hand while dragging.
-   鼠标指针：在物体上显示小手，拖拽时显示抓取的手。 */
+/* Mouse cursor: pointer (hand) over an object. / 鼠标指针：在物体上显示小手。 */
 .collage.has-hover { cursor: pointer; }
-.collage.is-grabbing,
-.collage.is-grabbing * { cursor: grabbing !important; }
 
 /* Warm "old photo" filter over the whole 2000s page (the yellow layer in Figma).
    2000s 首页整体的暖黄色"旧照片"滤镜（Figma 里的黄色滤镜图层）。 */
@@ -166,7 +152,7 @@
   z-index: 100000;
 }
 
-/* "Drag the objects around" hint at the bottom; fades out after 6 seconds.
+/* "Click an object to open it" hint at the bottom; fades out after 6 seconds.
    底部的操作提示，6 秒后自动淡出。 */
 .hint {
   position: fixed;
