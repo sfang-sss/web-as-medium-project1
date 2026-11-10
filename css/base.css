@@ -1,0 +1,199 @@
+/* =========================================================
+   The Comfort of Looking Back — base.css
+   Shared basics: page setup, the top bar (About / Home, site name, clock)
+   and the square transition between the two landing pages.
+   全站共用的基础样式：页面基本设置、顶部栏（About / Home、网站名、时钟）、两个首页之间的方块转场。
+   Used by / 用在: every page / 所有页面
+   ========================================================= */
+
+
+/* ---------- Base styles / 基础样式 ---------- */
+
+/* Width and height include padding and border (easier to size boxes).
+   */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* Stop phones from enlarging text on their own. / 防止手机自动放大文字。 */
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;                         /* remove the browser's default margin / 去掉浏览器默认的外边距 */
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-stretch: 72%;                 /* makes Archivo narrow, like a condensed font / 让 Archivo 变窄，接近 Condensed 字体 */
+  font-weight: 500;
+  line-height: 1.25;
+  animation: page-in 0.5s ease both; /* every page fades in / 每个页面打开时淡入 */
+}
+
+/* Images behave like blocks and never overflow their container.
+   图片当作块元素，并且不会超出它的容器。 */
+img { display: block; max-width: 100%; }
+
+/* Links use the surrounding text color by default (not browser blue).
+   链接默认用周围文字的颜色，而不是浏览器的蓝色。 */
+a { color: inherit; }
+
+/* Hidden on screen but still read by screen readers (accessibility).
+   屏幕上看不见，但读屏软件能读到（无障碍）。 */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Pink outline when moving through links with the Tab key.
+   用 Tab 键切换链接时显示粉色外框。 */
+:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 4px;
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* ---------- Header: About / Home link and the clock / 顶部：About、Home 链接和时钟 ---------- */
+
+/* The nav floats on top of the page. It ignores the mouse itself,
+   so only the links inside it can be clicked.
+   导航浮在页面最上层。它本身不接收鼠标，只有里面的链接能点。 */
+.site-header nav {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 200000;
+  pointer-events: none;
+}
+
+/* "About" (on landing pages) and "Home" (on other pages).
+   首页上的 "About" 和其他页面上的 "Home"。 */
+.nav-link {
+  position: absolute;
+  top: var(--nav-top);       /* "Home": see --nav-top in settings.css / 见 settings.css 里的 --nav-top */
+  left: var(--nav-left);
+  font-size: max(18px, calc(35 * 100vw / 1920));
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.nav-link:hover { color: var(--pink); }
+.landing .nav-link { top: var(--nav-top-2026); }                                  /* About on the 2026 page / 2026 首页的 About */
+.landing--2000s .nav-link { top: var(--nav-top-2000s); color: var(--ink-2000s); }  /* About on the 2000s page, dark brown / 2000s 首页的 About，深棕色 */
+
+/* Site name "The Comfort of Looking Back", centered at the top of both
+   landing pages, in 50% black. Plain text
+   >>> Font size: change the 40 in "font-size" below (40 = Figma px). <<<
+   两个首页顶部居中的网站名，50% 黑色（来自 Figma）
+   >>> 字号：改下面 font-size 里的 40（Figma 里的像素值）。<<< */
+.site-name {
+  position: absolute;
+  top: max(8px, calc(18 * 100vw / 1920));
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: max(16px, calc(30 * 100vw / 1920));   /* 40 = size in Figma px; 16px = smallest it can get on small screens / 40 = Figma 字号；16px = 小屏幕上的最小字号 */
+  color: rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* On the 2000s page the site name is in Georgia (serif), slightly lower (Figma y = 22). */
+.landing--2000s .site-name {
+  top: max(8px, calc(22 * 100vw / 1920));
+  font-family: Georgia, "Times New Roman", serif;
+  font-stretch: normal;
+  font-weight: 700;
+}
+
+/* The clock switches between the 2026 and 2000s landing pages.
+   Its size is fixed in px, so it keeps its shape on every screen.
+   时钟用来在 2026 和 2000s 首页之间切换。
+   尺寸用固定像素，所以在任何屏幕上都保持原样。 */
+.era-switch {
+  position: absolute;
+  /* Position and size: see --clock-top, --clock-right, --clock-w in settings.css.
+     位置和大小：见 settings.css 里的 --clock-top、--clock-right、--clock-w。 */
+  top: var(--clock-top);
+  right: var(--clock-right);
+  opacity: 0.7;              /* 70%, as in Figma / 70% 透明度，和 Figma 一致 */
+  width: var(--clock-w);
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* width fixed, height:auto keeps the original proportions (no stretching).
+   宽度固定，高度 auto，保持原图比例，不会被拉长。 */
+
+.era-switch img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  transform-origin: 50% 50%;  /* the clock icon wobbles around its center / 时钟图标绕中心摆动 */
+}
+
+/* Hover: the watch swings left and right. JS adds .is-swinging when the
+   mouse enters, and when it leaves, JS lets the swing slow down and settle
+   (see js/main.js, part 5).
+   The swing starts and ends at 0deg, so it starts smoothly from rest.
+   悬停：怀表左右摆动。鼠标进入时 JS 加上 .is-swinging；鼠标离开时，
+   JS 让摆动慢慢减弱、停下来（见 js/main.js 第 5 部分）。
+   摆动从 0 度开始，所以开始时也很自然，不会突然跳到一边。 */
+.era-switch.is-swinging img { animation: tick 1.2s ease-in-out infinite; }
+
+@keyframes tick {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(8deg); }
+  75%  { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Click: JS adds .is-dropping, the watch drops down a little with a small
+   bounce, then the other landing page opens (see js/main.js, part 4).
+   点击：JS 加上 .is-dropping 这个 class，怀表往下掉一点并轻轻弹一下，
+   然后打开另一个首页（见 js/main.js 第 4 部分）。 */
+.era-switch.is-dropping { animation: drop 0.55s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+.era-switch.is-dropping img { animation-play-state: paused; } /* freeze the swing while dropping / 下落时停止摆动 */
+
+@keyframes drop {
+  0%   { transform: translateY(0)    rotate(0deg); }
+  55%  { transform: translateY(46px) rotate(-6deg); animation-timing-function: ease-out; }
+  75%  { transform: translateY(34px) rotate(3deg);  animation-timing-function: ease-in; }
+  100% { transform: translateY(40px) rotate(0deg); }
+}
+
+
+/* Square transition: the canvas the squares are drawn on (see js/main.js, part 4).
+   It covers the whole window and sits above everything, including the clock.
+   方块转场：画方块用的画布（见 js/main.js 第 4 部分）。铺满整个窗口，在所有东西上面，包括时钟。 */
+.transition-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 300000;
+  pointer-events: none;
+}
+
+/* While a page is arriving through the transition, skip the usual fade-in
+   (the squares do the revealing instead) and keep the background pink so
+   nothing flashes before the squares are drawn.
+   通过转场到达页面时，不用平常的淡入（由方块来揭开页面），
+   背景先设为粉色，避免方块画出来之前闪一下。 */
+html.is-arriving { background: var(--pink); }
+html.is-arriving body { animation: none; visibility: hidden; }
+html.no-fade body { animation: none; }
+
+
+/* ---------- Reduced motion / 减少动态效果 ----------
+   If the visitor turned on "Reduce motion" in their system settings,
+   switch off all animations.
+   如果访问者在系统设置里开启了"减少动态效果"，就关掉所有动画。 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

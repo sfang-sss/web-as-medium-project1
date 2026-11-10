@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → about.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ about.css（本页专用） -->
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/about.css">
 </head>
 <body class="about">
   <!-- ========== ABOUT PAGE / 关于页面 ========== -->
@@ -29,8 +32,6 @@
     </nav>
   </header>
 
-  <!-- Pink dot grid in the background / 背景的粉色点阵 -->
-  <div class="dots dots--page" aria-hidden="true"></div>
 
   <main class="about">
     <h1 class="about-title">About this Collection...</h1>

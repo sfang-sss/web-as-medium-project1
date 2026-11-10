@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: Vinyl Record / 物品详情页 ========== -->
@@ -65,6 +68,11 @@
         <p>A vinyl record stores sound as a spiral groove pressed into a plastic disc, read by a needle on a <a class="link-external" href="https://en.wikipedia.org/wiki/Phonograph" target="_blank" rel="noopener">turntable</a>. The large sleeve made album art a format of its own, and listening meant sitting with a full side of music.</p>
         <p>The <a class="link-internal" href="cassette.html">cassette tape</a> and the <a class="link-internal" href="cd-player.html">CD player</a> made music more portable, and vinyl became a niche. Its revival has little to do with convenience: people buy records to own something heavy and visible, to display the cover, and to make listening an intentional ritual — the same reason the <a class="link-internal" href="polaroid.html">Polaroid camera</a> came back.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Phonograph_record" target="_blank" rel="noopener">Phonograph record</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

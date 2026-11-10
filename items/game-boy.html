@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: Game Boy / 物品详情页 ========== -->
@@ -65,6 +68,11 @@
         <p>The Game Boy was a <a class="link-external" href="https://en.wikipedia.org/wiki/Handheld_game_console" target="_blank" rel="noopener">handheld game console</a> with a green-tinted monochrome screen, a cross-shaped D-pad, and swappable cartridges. Its battery life and durability made it the travel companion of a generation. Later, the glossy <a class="link-external" href="https://en.wikipedia.org/wiki/PlayStation_Portable" target="_blank" rel="noopener">PSP</a> added movies and music to the same pocket.</p>
         <p>Phone games replaced most handhelds, but the chunky buttons and pixel graphics remain shorthand for play. Together with the <a class="link-internal" href="tamagotchi.html">Tamagotchi</a>, it belongs to the era of single-purpose devices, and its low-resolution look connects to the <a class="link-internal" href="windows.html">early digital interfaces</a> that many people now find comforting.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Game_Boy" target="_blank" rel="noopener">Game Boy</a>, <a class="link-external" href="https://en.wikipedia.org/wiki/PlayStation_Portable" target="_blank" rel="noopener">PlayStation Portable</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

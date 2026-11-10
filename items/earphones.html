@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: Wired Earphones / 物品详情页 ========== -->
@@ -62,9 +65,14 @@
            粉色（link-internal）= 集合里的另一个物品
            黑色带 ↗（link-external）= Wikipedia，在新标签页打开 -->
       <section class="item-body" aria-label="Description">
-        <p>Wired earphones connect to a device through a cable and a <a class="link-external" href="https://en.wikipedia.org/wiki/Phone_connector_(audio" target="_blank" rel="noopener">3.5 mm jack</a>). For two decades the white cable running from a pocket to the ears was how people showed they were listening to an <a class="link-internal" href="ipod.html">iPod</a>.</p>
+        <p>Wired earphones connect to a device through a cable and a <a class="link-external" href="https://en.wikipedia.org/wiki/Phone_connector_(audio)" target="_blank" rel="noopener">3.5 mm jack</a>. For two decades the white cable running from a pocket to the ears was how people showed they were listening to an <a class="link-internal" href="ipod.html">iPod</a>.</p>
         <p>When phones dropped the headphone jack, wired earphones seemed finished. Recently they have reappeared as a style statement: the visible, slightly tangled cable reads as unpretentious and analog compared with the <a class="link-internal" href="airpods-max.html">AirPods Max</a>. They never need charging, and they make listening feel like something you are physically plugged into.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Headphones" target="_blank" rel="noopener">Headphones</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: CCD Camera / 物品详情页 ========== -->
@@ -63,9 +66,14 @@
            黑色带 ↗（link-external）= Wikipedia，在新标签页打开 -->
       <section class="item-body" aria-label="Description">
         <p>A charge-coupled device (CCD) is an <a class="link-external" href="https://en.wikipedia.org/wiki/Integrated_circuit" target="_blank" rel="noopener">integrated circuit</a> containing an array of linked, or coupled, <a class="link-external" href="https://en.wikipedia.org/wiki/Capacitor" target="_blank" rel="noopener">capacitors</a>. Under the control of an external circuit, each capacitor can transfer its <a class="link-external" href="https://en.wikipedia.org/wiki/Electric_charge" target="_blank" rel="noopener">electric charge</a> to a neighboring capacitor. CCD sensors are a major technology used in <a class="link-external" href="https://en.wikipedia.org/wiki/Digital_imaging" target="_blank" rel="noopener">digital imaging</a>.</p>
-        <p>In a CCD <a class="link-external" href="https://en.wikipedia.org/wiki/Image_sensor" target="_blank" rel="noopener">image sensor</a>, <a class="link-external" href="https://en.wikipedia.org/wiki/Pixel" target="_blank" rel="noopener">pixels</a> are represented by <a class="link-external" href="https://en.wikipedia.org/wiki/Doping_(semiconductor" target="_blank" rel="noopener">p-doped</a>) <a class="link-external" href="https://en.wikipedia.org/wiki/Metal%E2%80%93oxide%E2%80%93semiconductor" target="_blank" rel="noopener">metal–oxide–semiconductor</a> (MOS) <a class="link-external" href="https://en.wikipedia.org/wiki/Capacitor" target="_blank" rel="noopener">capacitors</a>. These <a class="link-external" href="https://en.wikipedia.org/wiki/MOS_capacitor" target="_blank" rel="noopener">MOS capacitors</a>, the basic building blocks of a CCD, are biased above the threshold for inversion when image acquisition begins, allowing the conversion of incoming <a class="link-external" href="https://en.wikipedia.org/wiki/Photon" target="_blank" rel="noopener">photons</a> into electron charges at the semiconductor-oxide interface; the CCD is then used to read out these charges.</p>
+        <p>In a CCD <a class="link-external" href="https://en.wikipedia.org/wiki/Image_sensor" target="_blank" rel="noopener">image sensor</a>, <a class="link-external" href="https://en.wikipedia.org/wiki/Pixel" target="_blank" rel="noopener">pixels</a> are represented by <a class="link-external" href="https://en.wikipedia.org/wiki/Doping_(semiconductor)" target="_blank" rel="noopener">p-doped</a> <a class="link-external" href="https://en.wikipedia.org/wiki/Metal%E2%80%93oxide%E2%80%93semiconductor" target="_blank" rel="noopener">metal–oxide–semiconductor</a> (MOS) <a class="link-external" href="https://en.wikipedia.org/wiki/Capacitor" target="_blank" rel="noopener">capacitors</a>. These <a class="link-external" href="https://en.wikipedia.org/wiki/MOS_capacitor" target="_blank" rel="noopener">MOS capacitors</a>, the basic building blocks of a CCD, are biased above the threshold for inversion when image acquisition begins, allowing the conversion of incoming <a class="link-external" href="https://en.wikipedia.org/wiki/Photon" target="_blank" rel="noopener">photons</a> into electron charges at the semiconductor-oxide interface; the CCD is then used to read out these charges.</p>
         <p>Although CCDs are not the only technology to allow for light detection, CCD image sensors are widely used in professional, medical, and scientific applications where high-quality image data are required.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Charge-coupled_device" target="_blank" rel="noopener">Charge-coupled device</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: AirPods Max / 物品详情页 ========== -->
@@ -65,6 +68,11 @@
         <p>AirPods Max are wireless over-ear headphones with noise cancellation and an aluminum frame. Worn on the street, they work as much as a fashion accessory as a way to listen.</p>
         <p>They are the 2026 counterpart to <a class="link-internal" href="earphones.html">wired earphones</a>: seamless, expensive, and always connected. Placing them next to the <a class="link-internal" href="ipod.html">iPod</a> and the <a class="link-internal" href="cd-player.html">CD player</a> shows how personal listening has changed — and why some people now choose the tangled cable instead.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/AirPods_Max" target="_blank" rel="noopener">AirPods Max</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

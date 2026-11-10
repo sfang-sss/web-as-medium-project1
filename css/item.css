@@ -1,0 +1,229 @@
+/* =========================================================
+   The Comfort of Looking Back — item.css
+   Item detail pages: title, photo, timeline, text, Wikipedia source note, Explore more.
+   物品详情页：标题、主图、时间线、正文、Wikipedia 来源说明、Explore more。
+   Used by / 用在: items/*.html
+   ========================================================= */
+
+
+/* ---------- Item detail pages (items/*.html) / 物品详情页 ---------- */
+
+/* Side spacing for the article and the "Explore more" section.
+   正文和 Explore more 区域的左右留白。 */
+.item,
+.explore { padding: 0 var(--page-side); }
+
+/* Big object name, e.g. "CCD Camera". / 大标题，例如 "CCD Camera"。 */
+.item-title {
+  overflow-wrap: break-word;   /* a very long word wraps instead of sticking out on phones / 很长的单词在手机上会换行，不会超出屏幕 */
+  margin: var(--item-top) auto 0;
+  padding: 0 calc(140 * var(--u));
+  font-size: max(52px, calc(150 * var(--u)));
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Grey square behind the main photo. / 主图后面的灰色正方形。 */
+.item-figure {
+  position: relative;
+  width: min(100%, max(280px, calc(747 * var(--u))));
+  aspect-ratio: 1;               /* always a square / 永远是正方形 */
+  margin: var(--item-image-top) auto 0;
+  background: var(--card);
+}
+
+/* The photo sits inside the square and never spills out (contain = fit inside).
+   照片放在正方形里，不会超出（contain = 完整放进去）。 */
+.item-figure img {
+  position: absolute;
+  inset: 14% 7.5%;
+  width: 85%;
+  height: 72%;
+  object-fit: contain;
+}
+
+/* Timeline: one horizontal line with 4 pink markers.
+   Text alternates below (1st, 3rd) and above (2nd, 4th) the line.
+   时间线：一条横线和 4 个粉色方块。
+   文字交替出现在线的下方（第 1、3 个）和上方（第 2、4 个）。 */
+.timeline-wrap {
+  width: 100%;   /* fills the space between the side margins / 填满左右边距之间 */
+  margin: var(--item-timeline-top) auto 0;
+}
+
+/* A grid with 4 columns and 3 rows: [text above] [line] [text below].
+   4 列 3 行的网格：[上方文字] [横线] [下方文字]。 */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto max(18px, calc(34 * var(--u))) auto;
+  column-gap: calc(30 * var(--u));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each event uses all 3 rows of its column (subgrid = share the parent's rows).
+   每个事件占它那一列的 3 行（subgrid = 共用父网格的行）。 */
+.timeline li {
+  grid-row: 1 / span 3;
+  display: grid;
+  grid-template-rows: subgrid;
+}
+
+/* Each event draws its own piece of the black line; together they form one line.
+   每个事件画自己那一段黑线，连起来就是一整条线。 */
+.timeline li::before {
+  content: "";
+  grid-row: 2;
+  grid-column: 1;
+  align-self: center;
+  height: max(2px, calc(3 * var(--u)));
+  margin-right: calc(-30 * var(--u)); /* stretch across the gap between columns / 延伸过列与列之间的空隙 */
+  background: var(--ink);
+}
+
+.timeline li:last-child::before { margin-right: 0; }
+
+/* Pink square marker on the line. / 线上的粉色方块。 */
+.timeline .marker {
+  position: relative;
+  grid-row: 2;
+  grid-column: 1;
+  z-index: 1;                    /* sits on top of the line / 盖在线的上面 */
+  width: max(18px, calc(34 * var(--u)));
+  aspect-ratio: 1;
+  margin-left: calc(80 * var(--u));
+  background: var(--pink);
+}
+
+.timeline p {
+  margin: 0;
+  padding: calc(20 * var(--u)) 0;
+  font-size: max(17px, calc(35 * var(--u)));
+  line-height: 1.3;
+}
+
+/* odd = 1st and 3rd events, below the line; even = 2nd and 4th, above.
+   odd（奇数）= 第 1、3 个，在线下方；even（偶数）= 第 2、4 个，在线上方。 */
+.timeline li:nth-child(odd) p  { grid-row: 3; align-self: start; }
+.timeline li:nth-child(even) p { grid-row: 1; align-self: end; }
+
+.timeline time { color: var(--pink); } /* the year is pink / 年份是粉色 */
+
+/* Description paragraphs. / 介绍文字。 */
+.item-body {
+  width: 100%;   /* fills the space between the side margins / 填满左右边距之间 */
+  margin: var(--item-text-top) auto 0;
+  font-size: max(17px, calc(35 * var(--u)));
+  line-height: 1.35;
+}
+
+.item-body p { margin: 0 0 1.35em; }
+
+/* Source note under the description: small grey text crediting Wikipedia.
+   It is the <footer> of the <article>, which is where source info belongs.
+   正文下方的小字来源说明，注明信息来自 Wikipedia。放在 <article> 的 <footer> 里。 */
+.item-source {
+  width: 100%;   /* fills the space between the side margins / 填满左右边距之间 */
+  margin: 0 auto;
+  font-size: max(13px, calc(24 * var(--u)));
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.item-source p { margin: 0; }
+
+/* TWO KINDS OF LINKS / 两种链接
+   - .link-internal: goes to another object in this collection (pink).
+   - .link-external: goes to Wikipedia, opens in a new tab (black + ↗).
+   - .link-internal：跳到集合里的另一个物品（粉色）。
+   - .link-external：跳到 Wikipedia，在新标签页打开（黑色 + ↗）。 */
+.link-internal {
+  color: var(--pink);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+.link-internal:hover { background: var(--pink); color: #fff; text-decoration: none; }
+
+.link-external {
+  text-decoration: underline;
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.12em;
+}
+
+/* Adds a small ↗ arrow after external links. / 在外部链接后面加一个小 ↗ 箭头。 */
+.link-external::after { content: "\2197"; font-size: 0.6em; vertical-align: super; margin-left: 0.1em; }
+.link-external:hover { color: var(--pink); }
+
+/* "Explore more..." section with 4 related objects.
+   "Explore more..." 区域，放 4 个相关物品。 */
+.explore { margin: var(--explore-top) 0 var(--page-bottom); }
+
+.explore-title {
+  margin: 0 0 var(--explore-title-gap);
+  font-size: max(28px, calc(60 * var(--u)));
+  font-weight: 500;
+}
+
+/* 4 cards in a row. / 一行 4 张卡片。 */
+.related {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--explore-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.related a { display: block; text-decoration: none; text-align: center; }
+
+/* Grey square card. / 灰色正方形卡片。 */
+.related-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.related-thumb img {
+  position: absolute;
+  inset: 10%;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+/* Hover: the photo grows and tilts a little; the name turns pink.
+   悬停：图片稍微放大、倾斜，名字变成粉色。 */
+.related a:hover .related-thumb img { transform: scale(1.08) rotate(-3deg); }
+.related a:hover .related-name { color: var(--pink); }
+
+.related-name {
+  display: block;
+  margin-top: 4px;
+  font-size: max(17px, calc(45 * var(--u)));
+  line-height: 1.2;
+}
+
+
+/* ---------- Phones / 手机 ---------- */
+@media (max-width: 700px) {
+  .item-title { padding: 0 48px; }
+
+  /* Timeline turns vertical: a line on the left, events stacked top to bottom.
+     时间线改成竖向：左边一条线，事件从上往下排。 */
+  .timeline { display: block; border-left: 2px solid var(--ink); margin-left: 9px; }
+  .timeline li::before { display: none; }
+  .timeline li { display: flex; align-items: flex-start; gap: 12px; margin-left: -10px; padding: 8px 0; }
+  .timeline .marker { margin: 4px 0 0; flex: none; }
+  .timeline p { padding: 0; }
+
+  .item-body { margin-top: 40px; }
+  .related { grid-template-columns: 1fr 1fr; } /* Explore more: 2 cards per row / Explore more 每行 2 张 */
+}

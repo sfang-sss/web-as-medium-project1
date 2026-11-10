@@ -1,0 +1,131 @@
+/* =========================================================
+   The Comfort of Looking Back — about.css
+   About page: title, posters, curatorial text, Index of objects.
+   About 页面：标题、海报、策展文字、物品索引。
+   Used by / 用在: about.html
+   ========================================================= */
+
+
+/* ---------- About page (about.html) / About 页面 ---------- */
+
+body.about { position: relative; }
+
+/* "main.about" (not just ".about"): the <body> of this page also has the
+   class "about", and the margin should only be applied once.
+   用 "main.about" 而不是 ".about"：这个页面的 <body> 也有 about 这个 class，边距只应加一次。 */
+main.about {
+  position: relative;
+  padding: 0 var(--page-side) var(--page-bottom);
+}
+
+.about-title {
+  overflow-wrap: break-word;   /* a very long word wraps instead of sticking out on phones / 很长的单词在手机上会换行，不会超出屏幕 */
+  margin: 0;
+  padding-top: var(--aboutpage-top);
+  font-size: max(48px, calc(150 * var(--u)));
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Two posters side by side. / 两张海报并排。 */
+.posters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--aboutpage-posters-gap);
+  width: min(100%, var(--aboutpage-posters-width));
+  margin: var(--aboutpage-posters-top) auto 0;
+}
+
+.posters figure { margin: 0; }
+.posters img {
+  width: 100%;
+  aspect-ratio: var(--aboutpage-poster-ratio);  /* both posters get exactly the same height / 两张海报高度完全一样 */
+  object-fit: cover;                            /* fill that shape; trims a sliver if the image ratio differs slightly / 填满这个比例，比例略有不同时会裁掉一点点边 */
+}
+
+/* Curatorial statement. A white-ish background keeps it readable over the dots.
+   策展说明。半透明白底，让文字在点阵上也清楚。 */
+.about-text {
+  width: 100%;   /* fills the space between the side margins / 填满左右边距之间 */
+  margin: var(--aboutpage-text-top) auto 0;
+  font-size: max(17px, calc(35 * var(--u)));
+  line-height: 1.35;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.about-text p { margin: 0 0 1.2em; }
+
+/* "Index of objects": an overview of every item in the set.
+   "Index of objects"：所有物品的总览。 */
+.index {
+  width: 100%;   /* fills the space between the side margins / 填满左右边距之间 */
+  margin: var(--aboutpage-index-top) auto 0;
+}
+
+.index h2 {
+  margin: 0 0 calc(30 * var(--u));
+  font-size: max(28px, calc(60 * var(--u)));
+  font-weight: 500;
+}
+
+/* Index of objects: a grid of cards that are ALL THE SAME SIZE and that
+   line up exactly with the left and right edges of the text above.
+   >>> To adjust, edit --index-columns, --index-card-ratio and --index-gap
+       in settings.css. <<<
+     --index-columns: how many cards per row. The cards share the full text
+                      width equally, so more columns = narrower cards.
+     --index-card-ratio: card shape, width / height (3 / 4 = a bit taller than wide).
+   物品索引：所有卡片一样大，左右刚好和上面的文字对齐。
+   >>> 想调整就改 settings.css 里的 --index-columns、--index-card-ratio、--index-gap。<<<
+     --index-columns：每行几张。卡片平分整个正文宽度，所以列数越多，卡片越窄。
+     --index-card-ratio：卡片比例，宽 / 高（3 / 4 = 比宽稍微高一点）。 */
+.index-list {
+  display: grid;
+  grid-template-columns: repeat(var(--index-columns), minmax(0, 1fr)); /* equal columns that fill the text width (minmax(0, …) lets them shrink on small screens) / 等宽的列，铺满正文宽度 */
+  gap: var(--index-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each card fills its grid cell exactly. Inside: the picture takes the space
+   left over, and the name always gets room for 2 lines, so one-line and
+   two-line names ("Early Digital Interfaces") sit in identical cards.
+   每张卡片刚好填满格子。里面图片占剩下的空间，名字区域固定留两行的高度，
+   所以一行和两行的名字（比如 "Early Digital Interfaces"）卡片一样大。 */
+
+.index-list a {
+  display: grid;
+  grid-template-rows: 1fr 2.4em;   /* [picture] [name: 2 lines tall] / [图片] [名字：两行高] */
+  gap: 8px;
+  aspect-ratio: var(--index-card-ratio);   /* height follows the width, so every card has the same shape / 高度跟着宽度变，所有卡片形状一样 */
+  padding: 12px;
+  background: var(--card);
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  overflow: hidden;
+}
+
+.index-list img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;     /* the whole picture fits inside, never cropped / 图片完整显示，不会被裁掉 */
+}
+
+.index-list span {
+  display: flex;
+  align-items: center;     /* name centered in its 2-line area / 名字在两行的区域里垂直居中 */
+  justify-content: center;
+}
+
+.index-list a:hover { background: var(--pink); color: #fff; }
+
+
+/* ---------- Phones / 手机 ---------- */
+@media (max-width: 700px) {
+  .posters { grid-template-columns: 1fr; }                /* posters stack / 海报上下排 */
+}

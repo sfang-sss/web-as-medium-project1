@@ -1,0 +1,122 @@
+/* =========================================================
+   The Comfort of Looking Back — settings.css
+   ALL THE NUMBERS YOU CAN ADJUST: colors, top bar, page lengths, margins,
+   spacing, index cards, and their phone versions.
+   所有可以手动调整的数值：颜色、顶部栏、首页长度、边距、间距、索引卡片，以及手机版的数值。
+   Used by / 用在: every page / 所有页面 (load it FIRST / 第一个加载)
+   ========================================================= */
+
+
+/* HOW SIZES WORK / 尺寸是怎么算的
+   The Figma frames are 1920px wide.
+   - Landing pages / 首页:   calc(N * 100cqw / 1920)
+       N Figma px, scaled with the width of the page, so the collage
+       always looks like the Figma frame. / N 个 Figma 像素，随页面宽度等比缩放。
+   - Font sizes on text pages / 文字页面的字号:   calc(N * var(--u))
+       --u = 1 Figma px, never smaller than 0.5px or larger than 1px.
+       --u = 1 个 Figma 像素，最小 0.5px，最大 1px。
+   - Margins & gaps / 边距和间距:   plain px, set in settings.css.
+       固定像素，统一写在 settings.css 里。
+*/
+
+
+/* ---------- Settings / 设置 ----------
+   Change a value here and it updates everywhere on the site. */
+:root {
+  --pink: #e93392;        /* accent pink */
+  --ink: #000;            /* main text color / 主要文字颜色 */
+  --ink-2000s: #302c2c;   /* title color on the 2000s page / 2000s 首页标题颜色 */
+  --card: #e6e3dd;        /* grey card behind object photos / 物品图片后面的灰色底 */
+  --paper: #ead6b3;       /* fallback color for the paper texture / 纸张底纹加载前的底色 */
+  --bg: #fff;             /* page background / 页面背景色 */
+
+  /* 1 Figma pixel on text pages (see note at the top) / 文字页面上的 1 个 Figma 像素 */
+  --u: clamp(0.5px, calc(100vw / 1920), 1px);
+
+  /* Font list: the browser uses the first one that is available.
+     Oldschool Grotesk is used if it is installed on the computer;
+     otherwise Archivo (loaded from Google Fonts) takes its place.
+    
+     Google Fonts 加载的 Archivo 代替。 */
+  --font: "Oldschool Grotesk Condensed Var Trial", "Oldschool Grotesk Condensed", "Archivo", "Arial Narrow", sans-serif;
+
+  /* ===== TOP BAR ON THE LANDING PAGES / 首页顶部栏 =====
+     Where "About" (and "Home" on other pages) and the clock sit, in px,
+     measured from the edges of the window (values from Figma).
+     About（其他页面是 Home）和时钟的位置，单位像素，从窗口边缘量起（数值来自 Figma）。 */
+  --nav-left: 95px;          /* About / Home: distance from the LEFT edge / 离左边 */
+  --nav-top-2026: 107px;     /* About on the 2026 page: distance from the TOP / 2026 首页 About 离顶部 */
+  --nav-top-2000s: 102px;    /* About on the 2000s page: distance from the TOP / 2000s 首页 About 离顶部 */
+  --nav-top: 102px;          /* Home on item pages & the About page / 详情页和 About 页的 Home 离顶部 */
+  --clock-right: 86px;       /* clock: distance from the RIGHT edge / 时钟离右边 */
+  --clock-top: 93px;        /* clock: distance from the TOP (bigger = lower) / 时钟离顶部（越大越靠下） */
+  --clock-w: 46px;           /* clock size (it is square) / 时钟大小（正方形） */
+
+  /* ===== LANDING PAGE LENGTH / 首页长度 =====
+     Height of each landing page, in Figma px (the Figma frame is 1920 wide).
+     Set so the lowest object ends 210 Figma px above the end of the page.
+     Bigger number = longer page. Objects below the end get cut off.
+     每个首页的长度，单位是 Figma 像素（画板宽 1920）。
+     现在的数值让最底部的物体离页面结束正好 210。数字越大页面越长；超出长度的物体会被切掉。 */
+  --landing-h-2026: 4331;    /* Cybertruck's lowest point is at 4121, + 210 / Cybertruck 最低点 4121，+210 */
+  --landing-h-2000s: 3126;   /* blue Polaroid's lowest point is at 2916, + 210 / 蓝色拍立得最低点 2916，+210 */
+
+  /* ===== SPACING IN PIXELS / 边距（像素）=====
+     Margins and gaps on the item pages and the About page (values from
+     Figma). They do NOT scale with the window. Phones use smaller values,
+     see "Phones" at the bottom of this file.
+     详情页和 About 页的边距和间距（数值来自 Figma），不会随窗口缩放。
+     手机上会用更小的值，见本文件最后的 "Phones" 部分。 */
+
+  /* shared by item pages and the About page / 详情页和 About 页共用 */
+  --page-side: 177px;            /* left & right margin / 左右边距 */
+  --page-bottom: 210px;          /* last text or image → end of the page / 最底部内容到页面结束 */
+
+  /* item pages / 详情页 */
+  --item-top: 168px;             /* top of page → big title / 页面顶部到大标题 */
+  --item-image-top: 100px;       /* title → photo / 标题到主图 */
+  --item-timeline-top: 50px;     /* photo → timeline / 主图到时间线 */
+  --item-text-top: 50px;        /* timeline → description / 时间线到正文 */
+  --explore-top: 80px;           /* source note → "Explore more" / 来源说明到 Explore more */
+  --explore-title-gap: 10px;     /* "Explore more" → cards / Explore more 到卡片 */
+  --explore-gap: 54px;           /* gap between the 4 cards / 4 张卡片之间 */
+
+  /* About page / About 页 */
+  --aboutpage-top: 163px;        /* top of page → title / 页面顶部到标题 */
+  --aboutpage-posters-top: 100px;   /* title → posters / 标题到海报 */
+  --aboutpage-posters-gap: 48px;    /* gap between the 2 posters / 两张海报之间 */
+  --aboutpage-posters-width: 1312px;/* width of the 2 posters together (each poster is half, minus the gap) / 两张海报总宽度（每张占一半，减去间距） */
+  --aboutpage-poster-ratio: 633 / 976; /* shape of BOTH posters, width / height (from Figma), so their tops and bottoms line up / 两张海报的比例，宽 / 高（来自 Figma），让上下边对齐 */
+  --aboutpage-text-top: 100px;      /* posters → text / 海报到文字 */
+  --aboutpage-index-top: 120px;     /* text → "Index of objects" / 文字到物品索引 */
+
+  /* ===== INDEX OF OBJECTS (About page) / 物品索引（About 页）===== */
+  --index-columns: 6;        /* cards per row / 每行几张 */
+  --index-card-ratio: 3 / 4; /* card width / height / 卡片的宽 / 高 */
+  --index-gap: 24px;         /* space between cards / 卡片之间的间距 */
+}
+
+
+/* ---------- Phones (screens up to 700px wide) / 手机（700px 以下的屏幕）----------
+   Replaces some of the numbers above on phones. / 在手机上替换上面的部分数值。 */
+@media (max-width: 700px) {
+  /* Smaller spacing on phones; edit these numbers for the phone layout.
+     手机上用更小的边距；想调手机版就改这里的数字。 */
+  :root {
+    --page-side: 16px;       /* left & right margin on phones / 手机上的左右边距 */
+    --page-bottom: 120px;    /* space at the bottom on phones / 手机上的底部留白 */
+    --item-top: 64px;
+    --item-image-top: 40px;
+    --item-text-top: 48px;
+    --aboutpage-top: 96px;
+    --aboutpage-posters-top: 40px;
+    --aboutpage-text-top: 48px;
+    --explore-gap: 16px;
+    --aboutpage-posters-gap: 16px;
+    --nav-left: 16px;
+    --nav-top: 20px;
+    --clock-right: 16px;
+    --index-columns: 2;      /* Index of objects: cards per row on phones / 物品索引：手机上每行 2 张 */
+    --index-gap: 12px;
+  }
+}

@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: Cybertruck / 物品详情页 ========== -->
@@ -65,6 +68,11 @@
         <p>The Cybertruck is an electric pickup with flat <a class="link-external" href="https://en.wikipedia.org/wiki/Stainless_steel" target="_blank" rel="noopener">stainless-steel</a> panels and sharp angles, designed to look like nothing else on the road.</p>
         <p>Its shape looks less like a car from the future and more like the future as imagined in the past: low-polygon 3D models, 1980s science fiction, and the optimistic digital look of <a class="link-internal" href="windows.html">early interfaces</a>. It belongs to the 2026 side of the collection, showing that even new objects borrow from old visions of tomorrow — much like the dreamlike images of <a class="link-internal" href="liminal.html">liminal spaces</a>.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Tesla_Cybertruck" target="_blank" rel="noopener">Tesla Cybertruck</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one

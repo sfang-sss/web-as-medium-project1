@@ -16,8 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 
-  <!-- All the site's styles / 全站的样式 -->
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- Styles, in this order: settings.css (all the numbers you can adjust) → base.css (shared by every page) → item.css (this page only)
+       样式按顺序加载：settings.css（所有可调数值）→ base.css（所有页面共用）→ item.css（本页专用） -->
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/item.css">
 </head>
 <body class="detail">
   <!-- ========== ITEM PAGE: Liminal Spaces / 物品详情页 ========== -->
@@ -62,9 +65,14 @@
            粉色（link-internal）= 集合里的另一个物品
            黑色带 ↗（link-external）= Wikipedia，在新标签页打开 -->
       <section class="item-body" aria-label="Description">
-        <p>A <a class="link-external" href="https://en.wikipedia.org/wiki/Liminal_space_(aesthetic" target="_blank" rel="noopener">liminal space</a>) is a place of transition — a hallway, a waiting room, an empty pool — photographed when no one is there. Online, these images feel both familiar and unsettling, as if they come from a memory you are not sure is yours.</p>
+        <p>A <a class="link-external" href="https://en.wikipedia.org/wiki/Liminal_space_(aesthetic)" target="_blank" rel="noopener">liminal space</a> is a place of transition — a hallway, a waiting room, an empty pool — photographed when no one is there. Online, these images feel both familiar and unsettling, as if they come from a memory you are not sure is yours.</p>
         <p>The aesthetic leans on the look of the technology in this collection: the blur of a <a class="link-internal" href="dv.html">DV camcorder</a>, the flash of a <a class="link-internal" href="ccd.html">CCD camera</a>, and the computer labs of <a class="link-internal" href="windows.html">early digital interfaces</a>. It shows that nostalgia is not only about objects but also about how those objects made the past look.</p>
       </section>
+
+      <!-- Source note: the facts on this page come from Wikipedia / 来源说明：本页信息来自 Wikipedia -->
+      <footer class="item-source">
+        <p>Information on this page is adapted from Wikipedia: <a class="link-external" href="https://en.wikipedia.org/wiki/Liminal_space_(aesthetic)" target="_blank" rel="noopener">Liminal space (aesthetic)</a>, <a class="link-external" href="https://en.wikipedia.org/wiki/The_Backrooms" target="_blank" rel="noopener">The Backrooms</a>.</p>
+      </footer>
     </article>
 
     <!-- Explore more: 4 related objects. This is how visitors move from one
